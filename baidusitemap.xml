@@ -4,6 +4,24 @@
 
     
   <url>
+    <loc>https://samaelchen.github.io/linux_usage_daily/</loc>
+    <lastmod>2018-08-15T12:43:55.863Z</lastmod>
+    <data>
+        <display>
+        <title>Linux 日常使用软件的日经吐槽贴</title>
+        <pubTime>2018-06-21T16:00:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="搞着玩" url="https://samaelchen.github.io/categories/fun/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://samaelchen.github.io/pytorch_lstm_sentiment/</loc>
     <lastmod>2018-08-15T12:37:15.365Z</lastmod>
     <data>
@@ -22,12 +40,12 @@
 
     
   <url>
-    <loc>https://samaelchen.github.io/machine_learning_step12/</loc>
+    <loc>https://samaelchen.github.io/machine_learning_hw02/</loc>
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     <data>
         <display>
-        <title>台大李宏毅机器学习——neighbor embedding & auto-encoder</title>
-        <pubTime>2017-09-19T16:00:00.000Z</pubTime>
+        <title>台大李宏毅机器学习作业——分类算法</title>
+        <pubTime>2017-12-25T16:00:00.000Z</pubTime>
         
          
            
@@ -58,12 +76,12 @@
 
     
   <url>
-    <loc>https://samaelchen.github.io/deep_learning_step1/</loc>
+    <loc>https://samaelchen.github.io/deeplearning_set_up/</loc>
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     <data>
         <display>
-        <title>台大李宏毅深度学习——常见神经网络结构</title>
-        <pubTime>2018-05-22T16:00:00.000Z</pubTime>
+        <title>深度学习工作站配置</title>
+        <pubTime>2017-01-04T16:00:00.000Z</pubTime>
         
          
            
@@ -76,17 +94,17 @@
 
     
   <url>
-    <loc>https://samaelchen.github.io/deeplearning_set_up/</loc>
+    <loc>https://samaelchen.github.io/deeplearning_sp1/</loc>
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     <data>
         <display>
-        <title>深度学习工作站配置</title>
-        <pubTime>2017-01-04T16:00:00.000Z</pubTime>
+        <title>优化算法</title>
+        <pubTime>2017-03-16T16:00:00.000Z</pubTime>
         
          
            
              
-              <breadCrumb title="深度学习" url="https://samaelchen.github.io/categories/DeepLearning/"/>
+              <breadCrumb title="统计学习" url="https://samaelchen.github.io/categories/StatisticalLearning/"/>
           
         </display>
     </data>
@@ -112,17 +130,53 @@
 
     
   <url>
-    <loc>https://samaelchen.github.io/deeplearning_sp1/</loc>
+    <loc>https://samaelchen.github.io/deep_learning_step4/</loc>
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     <data>
         <display>
-        <title>优化算法</title>
-        <pubTime>2017-03-16T16:00:00.000Z</pubTime>
+        <title>台大李宏毅深度学习——神经网络一些骚操作</title>
+        <pubTime>2018-07-22T16:00:00.000Z</pubTime>
         
          
            
              
-              <breadCrumb title="统计学习" url="https://samaelchen.github.io/categories/StatisticalLearning/"/>
+              <breadCrumb title="深度学习" url="https://samaelchen.github.io/categories/DeepLearning/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://samaelchen.github.io/deeplearning_mxnet_step1/</loc>
+    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
+    <data>
+        <display>
+        <title>CNN中文验证码识别</title>
+        <pubTime>2017-04-12T16:00:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="MXNet" url="https://samaelchen.github.io/categories/MXNet/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://samaelchen.github.io/economics_thoughts_notes2/</loc>
+    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
+    <data>
+        <display>
+        <title>经济思想史读书笔记——早期古典经济学</title>
+        <pubTime>2018-07-07T16:00:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="读书笔记" url="https://samaelchen.github.io/categories/ReadingNotes/"/>
           
         </display>
     </data>
@@ -166,12 +220,12 @@
 
     
   <url>
-    <loc>https://samaelchen.github.io/linear_algebra_step10/</loc>
+    <loc>https://samaelchen.github.io/linear_algebra_step1/</loc>
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     <data>
         <display>
-        <title>线性代数 10</title>
-        <pubTime>2018-07-09T16:00:00.000Z</pubTime>
+        <title>线性代数 01</title>
+        <pubTime>2018-05-24T16:00:00.000Z</pubTime>
         
          
            
@@ -184,12 +238,12 @@
 
     
   <url>
-    <loc>https://samaelchen.github.io/linear_algebra_step1/</loc>
+    <loc>https://samaelchen.github.io/linear_algebra_step10/</loc>
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     <data>
         <display>
-        <title>线性代数 01</title>
-        <pubTime>2018-05-24T16:00:00.000Z</pubTime>
+        <title>线性代数 10</title>
+        <pubTime>2018-07-09T16:00:00.000Z</pubTime>
         
          
            
@@ -238,24 +292,6 @@
 
     
   <url>
-    <loc>https://samaelchen.github.io/linear_algebra_step3/</loc>
-    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
-    <data>
-        <display>
-        <title>线性代数 03</title>
-        <pubTime>2018-06-07T16:00:00.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="统计学习" url="https://samaelchen.github.io/categories/StatisticalLearning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://samaelchen.github.io/linear_algebra_step2/</loc>
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     <data>
@@ -292,6 +328,42 @@
 
     
   <url>
+    <loc>https://samaelchen.github.io/linear_algebra_step3/</loc>
+    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
+    <data>
+        <display>
+        <title>线性代数 03</title>
+        <pubTime>2018-06-07T16:00:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="统计学习" url="https://samaelchen.github.io/categories/StatisticalLearning/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://samaelchen.github.io/linear_algebra_step4/</loc>
+    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
+    <data>
+        <display>
+        <title>线性代数 04</title>
+        <pubTime>2018-06-18T16:00:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="统计学习" url="https://samaelchen.github.io/categories/StatisticalLearning/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://samaelchen.github.io/linear_algebra_step5/</loc>
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     <data>
@@ -316,24 +388,6 @@
         <display>
         <title>线性代数 06</title>
         <pubTime>2018-06-20T16:00:00.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="统计学习" url="https://samaelchen.github.io/categories/StatisticalLearning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://samaelchen.github.io/linear_algebra_step4/</loc>
-    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
-    <data>
-        <display>
-        <title>线性代数 04</title>
-        <pubTime>2018-06-18T16:00:00.000Z</pubTime>
         
          
            
@@ -400,6 +454,24 @@
 
     
   <url>
+    <loc>https://samaelchen.github.io/deep_learning_step1/</loc>
+    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
+    <data>
+        <display>
+        <title>台大李宏毅深度学习——常见神经网络结构</title>
+        <pubTime>2018-05-22T16:00:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="深度学习" url="https://samaelchen.github.io/categories/DeepLearning/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://samaelchen.github.io/word2vec_pytorch/</loc>
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     <data>
@@ -424,24 +496,6 @@
         <display>
         <title>台大李宏毅机器学习作业——CNN visualization</title>
         <pubTime>2018-01-31T16:00:00.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="统计学习" url="https://samaelchen.github.io/categories/StatisticalLearning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://samaelchen.github.io/machine_learning_hw02/</loc>
-    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
-    <data>
-        <display>
-        <title>台大李宏毅机器学习作业——分类算法</title>
-        <pubTime>2017-12-25T16:00:00.000Z</pubTime>
         
          
            
@@ -490,24 +544,6 @@
 
     
   <url>
-    <loc>https://samaelchen.github.io/deep_learning_step3/</loc>
-    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
-    <data>
-        <display>
-        <title>台大李宏毅深度学习——RNN语言模型</title>
-        <pubTime>2018-05-31T16:00:00.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="深度学习" url="https://samaelchen.github.io/categories/DeepLearning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://samaelchen.github.io/machine_learning_step10/</loc>
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     <data>
@@ -526,12 +562,30 @@
 
     
   <url>
-    <loc>https://samaelchen.github.io/machine_learning_step13/</loc>
+    <loc>https://samaelchen.github.io/machine_learning_step15/</loc>
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     <data>
         <display>
-        <title>台大李宏毅机器学习——词向量</title>
-        <pubTime>2017-09-20T16:00:00.000Z</pubTime>
+        <title>台大李宏毅机器学习-迁移学习</title>
+        <pubTime>2017-10-08T16:00:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="统计学习" url="https://samaelchen.github.io/categories/StatisticalLearning/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://samaelchen.github.io/machine_learning_step12/</loc>
+    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
+    <data>
+        <display>
+        <title>台大李宏毅机器学习——neighbor embedding & auto-encoder</title>
+        <pubTime>2017-09-19T16:00:00.000Z</pubTime>
         
          
            
@@ -562,12 +616,12 @@
 
     
   <url>
-    <loc>https://samaelchen.github.io/machine_learning_step15/</loc>
+    <loc>https://samaelchen.github.io/machine_learning_step2/</loc>
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     <data>
         <display>
-        <title>台大李宏毅机器学习-迁移学习</title>
-        <pubTime>2017-10-08T16:00:00.000Z</pubTime>
+        <title>台大李宏毅机器学习——bias&variance</title>
+        <pubTime>2017-08-27T16:00:00.000Z</pubTime>
         
          
            
@@ -634,12 +688,12 @@
 
     
   <url>
-    <loc>https://samaelchen.github.io/machine_learning_step6/</loc>
+    <loc>https://samaelchen.github.io/machine_learning_step13/</loc>
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     <data>
         <display>
-        <title>台大李宏毅机器学习——深度学习入门</title>
-        <pubTime>2017-09-09T16:00:00.000Z</pubTime>
+        <title>台大李宏毅机器学习——词向量</title>
+        <pubTime>2017-09-20T16:00:00.000Z</pubTime>
         
          
            
@@ -652,12 +706,12 @@
 
     
   <url>
-    <loc>https://samaelchen.github.io/machine_learning_step2/</loc>
+    <loc>https://samaelchen.github.io/machine_learning_step6/</loc>
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     <data>
         <display>
-        <title>台大李宏毅机器学习——bias&variance</title>
-        <pubTime>2017-08-27T16:00:00.000Z</pubTime>
+        <title>台大李宏毅机器学习——深度学习入门</title>
+        <pubTime>2017-09-09T16:00:00.000Z</pubTime>
         
          
            
@@ -688,66 +742,12 @@
 
     
   <url>
-    <loc>https://samaelchen.github.io/deep_learning_step4/</loc>
-    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
-    <data>
-        <display>
-        <title>台大李宏毅深度学习——神经网络一些骚操作</title>
-        <pubTime>2018-07-22T16:00:00.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="深度学习" url="https://samaelchen.github.io/categories/DeepLearning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://samaelchen.github.io/deeplearning_mxnet_step1/</loc>
-    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
-    <data>
-        <display>
-        <title>CNN中文验证码识别</title>
-        <pubTime>2017-04-12T16:00:00.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="MXNet" url="https://samaelchen.github.io/categories/MXNet/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://samaelchen.github.io/economics_thoughts_notes3/</loc>
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     <data>
         <display>
         <title>经济思想史读书笔记——重商主义、重农主义及其他先驱</title>
         <pubTime>2018-07-11T16:00:00.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="读书笔记" url="https://samaelchen.github.io/categories/ReadingNotes/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://samaelchen.github.io/economics_thoughts_notes2/</loc>
-    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
-    <data>
-        <display>
-        <title>经济思想史读书笔记——早期古典经济学</title>
-        <pubTime>2018-07-07T16:00:00.000Z</pubTime>
         
          
            
@@ -784,24 +784,6 @@
         <display>
         <title>台大李宏毅机器学习——无监督学习</title>
         <pubTime>2017-09-17T16:00:00.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="统计学习" url="https://samaelchen.github.io/categories/StatisticalLearning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://samaelchen.github.io/machine_learning_step16/</loc>
-    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
-    <data>
-        <display>
-        <title>台大李宏毅机器学习——RNN</title>
-        <pubTime>2017-10-22T16:00:00.000Z</pubTime>
         
          
            
@@ -868,6 +850,24 @@
 
     
   <url>
+    <loc>https://samaelchen.github.io/machine_learning_step16/</loc>
+    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
+    <data>
+        <display>
+        <title>台大李宏毅机器学习——RNN</title>
+        <pubTime>2017-10-22T16:00:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="统计学习" url="https://samaelchen.github.io/categories/StatisticalLearning/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://samaelchen.github.io/machine_learning_step8/</loc>
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     <data>
@@ -879,6 +879,24 @@
            
              
               <breadCrumb title="统计学习" url="https://samaelchen.github.io/categories/StatisticalLearning/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://samaelchen.github.io/deep_learning_step3/</loc>
+    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
+    <data>
+        <display>
+        <title>台大李宏毅深度学习——RNN语言模型</title>
+        <pubTime>2018-05-31T16:00:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="深度学习" url="https://samaelchen.github.io/categories/DeepLearning/"/>
           
         </display>
     </data>
@@ -909,24 +927,6 @@
     <data>
         <display>
         <title>Ubuntu 装机后必搞的一些软件</title>
-        <pubTime>2018-06-21T16:00:00.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="搞着玩" url="https://samaelchen.github.io/categories/fun/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://samaelchen.github.io/linux_usage_daily/</loc>
-    <lastmod>2018-08-02T14:50:55.845Z</lastmod>
-    <data>
-        <display>
-        <title>Linux 日常使用软件的日经吐槽贴</title>
         <pubTime>2018-06-21T16:00:00.000Z</pubTime>
         
          

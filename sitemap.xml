@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://samaelchen.github.io/linux_usage_daily/</loc>
+    
+    <lastmod>2018-08-15T12:43:55.863Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://samaelchen.github.io/pytorch_lstm_sentiment/</loc>
     
     <lastmod>2018-08-15T12:37:15.365Z</lastmod>
@@ -9,7 +16,7 @@
   </url>
   
   <url>
-    <loc>https://samaelchen.github.io/machine_learning_step12/</loc>
+    <loc>https://samaelchen.github.io/machine_learning_hw02/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     
@@ -23,14 +30,14 @@
   </url>
   
   <url>
-    <loc>https://samaelchen.github.io/deep_learning_step1/</loc>
+    <loc>https://samaelchen.github.io/deeplearning_set_up/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://samaelchen.github.io/deeplearning_set_up/</loc>
+    <loc>https://samaelchen.github.io/deeplearning_sp1/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     
@@ -44,7 +51,21 @@
   </url>
   
   <url>
-    <loc>https://samaelchen.github.io/deeplearning_sp1/</loc>
+    <loc>https://samaelchen.github.io/deep_learning_step4/</loc>
+    
+    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://samaelchen.github.io/deeplearning_mxnet_step1/</loc>
+    
+    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://samaelchen.github.io/economics_thoughts_notes2/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     
@@ -65,14 +86,14 @@
   </url>
   
   <url>
-    <loc>https://samaelchen.github.io/linear_algebra_step10/</loc>
+    <loc>https://samaelchen.github.io/linear_algebra_step1/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://samaelchen.github.io/linear_algebra_step1/</loc>
+    <loc>https://samaelchen.github.io/linear_algebra_step10/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     
@@ -93,13 +114,6 @@
   </url>
   
   <url>
-    <loc>https://samaelchen.github.io/linear_algebra_step3/</loc>
-    
-    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://samaelchen.github.io/linear_algebra_step2/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
@@ -114,6 +128,20 @@
   </url>
   
   <url>
+    <loc>https://samaelchen.github.io/linear_algebra_step3/</loc>
+    
+    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://samaelchen.github.io/linear_algebra_step4/</loc>
+    
+    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://samaelchen.github.io/linear_algebra_step5/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
@@ -122,13 +150,6 @@
   
   <url>
     <loc>https://samaelchen.github.io/linear_algebra_step6/</loc>
-    
-    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://samaelchen.github.io/linear_algebra_step4/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     
@@ -156,6 +177,13 @@
   </url>
   
   <url>
+    <loc>https://samaelchen.github.io/deep_learning_step1/</loc>
+    
+    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://samaelchen.github.io/word2vec_pytorch/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
@@ -164,13 +192,6 @@
   
   <url>
     <loc>https://samaelchen.github.io/machine_learning_hw03/</loc>
-    
-    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://samaelchen.github.io/machine_learning_hw02/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     
@@ -191,13 +212,6 @@
   </url>
   
   <url>
-    <loc>https://samaelchen.github.io/deep_learning_step3/</loc>
-    
-    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://samaelchen.github.io/machine_learning_step10/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
@@ -205,7 +219,14 @@
   </url>
   
   <url>
-    <loc>https://samaelchen.github.io/machine_learning_step13/</loc>
+    <loc>https://samaelchen.github.io/machine_learning_step15/</loc>
+    
+    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://samaelchen.github.io/machine_learning_step12/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     
@@ -219,7 +240,7 @@
   </url>
   
   <url>
-    <loc>https://samaelchen.github.io/machine_learning_step15/</loc>
+    <loc>https://samaelchen.github.io/machine_learning_step2/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     
@@ -247,14 +268,14 @@
   </url>
   
   <url>
-    <loc>https://samaelchen.github.io/machine_learning_step6/</loc>
+    <loc>https://samaelchen.github.io/machine_learning_step13/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://samaelchen.github.io/machine_learning_step2/</loc>
+    <loc>https://samaelchen.github.io/machine_learning_step6/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     
@@ -268,28 +289,7 @@
   </url>
   
   <url>
-    <loc>https://samaelchen.github.io/deep_learning_step4/</loc>
-    
-    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://samaelchen.github.io/deeplearning_mxnet_step1/</loc>
-    
-    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://samaelchen.github.io/economics_thoughts_notes3/</loc>
-    
-    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://samaelchen.github.io/economics_thoughts_notes2/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     
@@ -304,13 +304,6 @@
   
   <url>
     <loc>https://samaelchen.github.io/machine_learning_step11/</loc>
-    
-    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://samaelchen.github.io/machine_learning_step16/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     
@@ -338,7 +331,21 @@
   </url>
   
   <url>
+    <loc>https://samaelchen.github.io/machine_learning_step16/</loc>
+    
+    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://samaelchen.github.io/machine_learning_step8/</loc>
+    
+    <lastmod>2018-08-15T11:58:12.584Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://samaelchen.github.io/deep_learning_step3/</loc>
     
     <lastmod>2018-08-15T11:58:12.584Z</lastmod>
     
@@ -353,13 +360,6 @@
   
   <url>
     <loc>https://samaelchen.github.io/linux_software/</loc>
-    
-    <lastmod>2018-08-02T14:50:55.845Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://samaelchen.github.io/linux_usage_daily/</loc>
     
     <lastmod>2018-08-02T14:50:55.845Z</lastmod>
     
