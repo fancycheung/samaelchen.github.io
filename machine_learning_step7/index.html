@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+<meta name="baidu-site-verification" content="0YbFtSUs3K" />
+<meta name="360-site-verification" content="e4a574f568678b9b725df6de1db257c5" />
+<meta name="msvalidate.01" content="B5A47A4FD6AB117AF1CE9EF8705A022C" />
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="深度学习调参技巧入门">
+<meta name="keywords" content="机器学习, 深度学习, 调参">
+<meta property="og:type" content="article">
+<meta property="og:title" content="台大李宏毅机器学习——深度学习调参">
+<meta property="og:url" content="https://samaelchen.github.io/machine_learning_step7/index.html">
+<meta property="og:site_name" content="碎碎念">
+<meta property="og:description" content="深度学习调参技巧入门">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml036.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml031.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml032.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml033.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml034.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml035.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml037.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml039.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml040.png">
+<meta property="og:updated_time" content="2018-08-15T11:58:12.584Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="台大李宏毅机器学习——深度学习调参">
+<meta name="twitter:description" content="深度学习调参技巧入门">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml036.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://samaelchen.github.io/machine_learning_step7/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>台大李宏毅机器学习——深度学习调参 | 碎碎念</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120854058-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-120854058-1');
+</script>
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a75b41f44b70e58f40edd582552291cf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">碎碎念</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://samaelchen.github.io/machine_learning_step7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Samael Chen">
+      <meta itemprop="description" content="活该没有性生活">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/profile/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="碎碎念">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">台大李宏毅机器学习——深度学习调参
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-09-12 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-12T00:00:00+08:00">2017-09-12</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/StatisticalLearning/" itemprop="url" rel="index"><span itemprop="name">统计学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>深度学习调参技巧入门 <a id="more"></a></p>
+<p>深度学习有很多框架，个人最喜欢的是dmlc的MXNet还有PyTorch。keras是另外一个非常友好的框架，后台可以调用tensorflow，但是tensorflow本身不是一个非常友好的框架，所以有兴趣的可以自己看看，上手很快。</p>
+<p>这里大概介绍深度学习炼丹的一些入门技巧。</p>
+<p>之前提到，深度学习也是机器学习的一个特例，因此深度学习的过程也是设计模型，计算模型的好坏，选择一个最好的模型。</p>
+<p>最基础的一个方法跟一般机器学习一样，先看在training上的效果，如果够好，再看在testing上的效果。但是这里有个不同，一般的机器学习基本上都可以在training上得到百分百正确的结果，例如决策树。但是深度学习并不一定能够在training上得到百分百正确。因此在训练深度学习的时候，不要一步到位只看testing的效果。</p>
+<p>这里有入门的五个小技巧：</p>
+<p><img src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml036.png"></p>
+<p>那么首先我们想一下，是否深度网络越深效果越好呢？答案是不一定的。举例而言，用全连接层和sigmoid函数训练mnist的时候，当层数加到很大的时候，训练效果可能就很不好了。</p>
+<p><img src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml031.png"></p>
+<p>一般而言，如果我们的neuron用的是sigmoid函数，那么我们会发生这样的现象。这个现象的原因就是梯度消失 Vanishing Gradient。</p>
+<p>所以，按照之前的反向传播更新参数的方法，靠近output layer的地方参数已经更新完毕，但是靠近input layer的地方还没train。用图形表示如下：</p>
+<p><img src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml032.png"></p>
+<p>那sigmoid函数为什么会发生这样的事情呢？我们不用严格去计算<span class="math inline">\(\frac{\partial l}{\partial w}\)</span>，按照导数的定义，我们可以知道，<span class="math inline">\(\frac{\partial l}{\partial w} = \frac{\Delta l}{\Delta w}\)</span>。所以我们把这种思想代入sigmoid作为激活函数的神经网络当中，我们可以发现当第一层的<span class="math inline">\(w_1\)</span>发生很大的变化，那么<span class="math inline">\(z_1 = w_1 \cdot x + b_1\)</span>发生很大的变化，但是经过sigmoid函数后，这个变化被缩小了，因此<span class="math inline">\(\sigma(z_1)\)</span>是小于<span class="math inline">\(z_1\)</span>的，而随着层数的增加，这样的影响就会不断加强。这就导致了在input layer地方的梯度会变得很小。也就是梯度消失的问题。</p>
+<p>那么理论上而言，用dynamic的learning rate也是可以解决这样的问题的，但是直接将sigmoid函数替换掉来得更干脆一点。</p>
+<p>现在有一个很常用的激活函数是ReLu（Recitified Linear Unit）。ReLu有很多好处，一个是求导更快；一个是Hinton提出无数个sigmoid叠加可以得到ReLu；当然，最重要的是ReLu可以解决梯度消失的问题。ReLu的函数可以表示如下： <span class="math display">\[
+a =
+\begin{cases}
+0, &amp;\mbox{if }z&lt;0 \\
+z, &amp;\mbox{if }z&gt;0
+\end{cases}
+\]</span> 这样的一个激活函数不是一个连续可导的函数，那么梯度下降是依赖于导数的，能不能求解呢？</p>
+<p>事实上，因为ReLu是分段可导的，而且在实际模型中，经过ReLu计算的神经元，每一层会有有一半的神经元是0，因此，如果现在一个神经网络的激活函数用的是ReLU，那么我们可以将整个神经网络表示为：</p>
+<p><img src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml033.png"></p>
+<p>那我们可以将那些<span class="math inline">\(0\)</span>的neuron直接不要掉，得到一个更瘦的网络。那因为现在的网络变成了线性的神经元，因此每次传递的梯度没有经过缩放，因此不会有梯度消失的问题。</p>
+<p>ReLu有各种各样的变型，一种是Leaky ReLu： <span class="math display">\[
+a =
+\begin{cases}
+0.01z, &amp;\mbox{if }z&lt;0 \\
+z, &amp;\mbox{if }z&gt;0
+\end{cases}
+\]</span> 还有一个种是parametric ReLu： <span class="math display">\[
+a =
+\begin{cases}
+\alpha z, &amp;\mbox{if }z&lt;0 \\
+z, &amp;\mbox{if }z&gt;0
+\end{cases}
+\]</span></p>
+<p>那事实上我们可以让网络自己决定每个neuron要用什么样的激活函数。这样的结构是Goodfellow提出的maxout network。maxout network跟之前的网络不一样的地方是，原先下图中我们得到的<span class="math inline">\(5\)</span>，<span class="math inline">\(7\)</span>这些数字都是要经过activation function变成其他值的。但是在maxout network里面，我们会把这些值变成一个group，然后去group里面的比较大的一个值作为output。这个事情，其实跟CNN里面的max pooling一样。</p>
+<p><img src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml034.png"></p>
+<p>这个网络中，哪几个神经元要结合，每个group中放多少个element需要事先设定好。由此我们可以发现，ReLu其实是maxout的一种特殊情况，而ReLu的其他变种也是，都是maxout的真子集。那事实上maxout并不能学习非线性的activation function，它只能学习分段线性的激活函数。</p>
+<p>那我们如果element放的越多，maxout network学到的激活函数分段就越多。从某种程度上而言，maxout network比较强的地方就是，不同的样本喂进去以后，通过更新<span class="math inline">\(w\)</span>，可能得到ReLu，也可能得到Leaky ReLu这样的activation function，也可能是其他的activation function。也就是说maxout network是一个会学习的网络。</p>
+<p>现在的问题是，这样一个分段的函数是否开进行梯度下降呢？实践上而言，这是可行的。因为在maxout network中，每一次传递的都是最大的那个值，那其余的神经元不对loss做贡献，因此每一次传递的都是一个linear的结果，那梯度下降是可以对linear的函数求解的。这里不用担心有一些<span class="math inline">\(w\)</span>不会被训练到，因为不同的batch喂进去的时候，不同的<span class="math inline">\(w\)</span>会被影响到。示意图如下：</p>
+<p><img src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml035.png"></p>
+<p>在这个网络中，<span class="math inline">\(z_2^1\)</span>没被训练到，但是如果用一笔新的数据，就有可能训练到这个值。</p>
+<p>另外如果不调整激活函数，我们就可以使用adagrad这样的方法。现在回顾一下adagrad，adagrad更新参数的方法是： <span class="math display">\[
+w^{t+1} = w^t - \frac{\eta}{\sqrt{\sum g_i^2}} g^t
+\]</span></p>
+<p>Hinton 提出了一种新的更新方法，RMSProp，更新步骤如下： <span class="math display">\[
+w^{t+1} = w^t - \frac{\eta}{\sigma^t} g^t, \sigma^t = \sqrt{\alpha (\sigma^{t-1})^2 + (1-\alpha) (g^t)^2}
+\]</span> 这是对Adagrad的一种变形。</p>
+<p>此外，我们也可以用物理的方法来考虑一下梯度下降。在物理世界中，一个小球从山丘向下滚动的时候，会因为惯性的关系继续滚动下去，越过saddle point，甚至可能越过一些小坑和小坡。因此我们也可以在梯度下降中加入一个类似的概念。示意如下：</p>
+<p><img src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml037.png"></p>
+<p>一般而言，这样的方法能躲过saddle point，但是不一定能够躲过local minimum。现在如果我们考虑了monentum，那么我们的迭代方式就是： <span class="math display">\[
+w^{t+1} = w^t + v^{t+1} \\
+v^{t+1} = \lambda v^t - \eta g^{t+1}
+\]</span> 我们可以看到，实际上用momentum的更新方法，我们实际上是考虑了之前每一次的移动。现在流行的Adam这个方法，实际上结合了RMSProp和momentum两种。</p>
+<p>那上面两种方法都是针对training进行优化的。现在看另外三种对testing进行优化的方法。</p>
+<p>第一种是early stopping。 Early stopping就是当模型在validation set上没有提升的情况下，就提前停止模型训练。当然，前提是模型在training上面可以正常收敛。</p>
+<p>第二种是regularization。Regularization有两种，一种是L1 regularization，另一种是L2 regularization。</p>
+<p>L2 regularization表示如下： <span class="math display">\[
+L&#39;(\theta) = L(\theta) + \lambda \frac{1}{2}||\theta||_2, \quad ||\theta||_2 = (w_1)^2 + (w_2)^2 + \dots + (w_n)^2
+\]</span> 那么我们更新参数的方法就是： <span class="math display">\[
+w^{t+1} = w^t - \eta \frac{\partial L&#39;}{\partial w} = w^t - \eta (\frac{\partial L}{\partial w} + \lambda w^t) = (1-\eta \lambda)w^t - \eta \frac{\partial L}{\partial w}
+\]</span> 由于后面还跟了一个当前的梯度，因此不用担心这样的更新方法会导致所有的参数迭代到0。</p>
+<p>那L1 regularization表示如下： <span class="math display">\[
+L&#39;(\theta) = L(\theta) + \lambda ||\theta||_1, \quad ||\theta||_1 = |w_1| + |w_2| + \dots + |w_n|
+\]</span> 所以我们更新参数的方法就是： <span class="math display">\[
+w^{t+1} = w^{t} - \eta \frac{\partial L&#39;}{\partial w} = w^t - \eta(\frac{\partial L}{\partial w} + \lambda \text{sign}(w^t))
+\]</span> 所以用L1，我们的参数每一次都会向0移动一个<span class="math inline">\(\lambda \eta\)</span>。</p>
+<p>实际上因为deep learning在初始化参数的时候，都会选择接近0的位置开始，因此实际上regularization在深度学习当中的作用可能还不如early stopping来得有用。</p>
+<p>最后一种就是dropout。dropout就是随机丢掉一部分的neuron，每一次mini-batch进入网络，都要重新dropout一些网络，也就是每一个batch的网络实际上是不一样的。从某种程度而言，这也是一种集成算法。</p>
+<p>这里需要注意的是，我们在training的时候需要进行dropout，但是在testing的时候是不进行dropout的。那这个时候，我们在training学到的<span class="math inline">\(w\)</span>，在testing上就要将<span class="math inline">\(w\)</span>乘以<span class="math inline">\(1-p\)</span>，其中<span class="math inline">\(p\)</span>是dropout的概率。</p>
+<p>那为什么要做这样的动作呢？之前我们说过，dropout是也是一种ensemble，ensemble方法如下：</p>
+<p><img src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml039.png"></p>
+<p>那dropout实际上是ensemble的一个变种。因为每一个neuron都有可能被drop，假设有m个neuron，那么我们理论上有可能得到<span class="math inline">\(2^m\)</span>种网络，而这些网络之间有些参数是共用的。</p>
+<p>那如果我们用ensemble的方法，那么我们就是将所有网络的结果进行平均。但是dropout是直接将所有的参数乘以<span class="math inline">\(1-p\)</span>，然后直接预测。而神奇的地方就在于，这样的方法得到结果跟ensemble的结果是接近的。</p>
+<p>举例而言，如下图：</p>
+<p><img src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml040.png"></p>
+<p>我们假设右上角就是我们用dropout训练好的模型，那么这个模型所有可能出现的network是左边的四种。假设每个neuron被dropout的概率一样，都是0.5，那么这四种结构出现的概率就是一样的，因此这四个结构的average就是右下角的结果，刚好就是training的weight乘以<span class="math inline">\(1-p\)</span>。</p>
+<p>那实际上，这个事情理论上只有在activation function是linear的时候才能work，nonlinear的模型实际上是不work的。但是神奇的就是，在真实使用的时候，nonlinear的模型，一样也可以使用。不过一般来说，如果activation function是linear的时候，dropout的效果会比较好。</p>
+<p>以上就是深度学习入门级的调参技巧。还是散沙的一句话，深度学习已经变成实验科学了，多动手是王道。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>乞讨码</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://github.com/SamaelChen/samaelchen.github.io/raw/hexo/images/wechatpay.png" alt="Samael Chen WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/machine_learning_step6/" rel="next" title="台大李宏毅机器学习——深度学习入门">
+                <i class="fa fa-chevron-left"></i> 台大李宏毅机器学习——深度学习入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/machine_learning_step8/" rel="prev" title="台大李宏毅机器学习——CNN">
+                台大李宏毅机器学习——CNN <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDg5NS83NDQ0"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/profile/avatar.jpg"
+                alt="Samael Chen" />
+            
+              <p class="site-author-name" itemprop="name">Samael Chen</p>
+              <p class="site-description motion-element" itemprop="description">活该没有性生活</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">53</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:chc199310@gmail.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samael Chen</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="Total Visitors">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="Total Views">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

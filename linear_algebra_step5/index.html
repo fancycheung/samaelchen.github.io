@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+<meta name="baidu-site-verification" content="0YbFtSUs3K" />
+<meta name="360-site-verification" content="e4a574f568678b9b725df6de1db257c5" />
+<meta name="msvalidate.01" content="B5A47A4FD6AB117AF1CE9EF8705A022C" />
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="逆矩阵">
+<meta name="keywords" content="线性代数,逆矩阵">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性代数 05">
+<meta property="og:url" content="https://samaelchen.github.io/linear_algebra_step5/index.html">
+<meta property="og:site_name" content="碎碎念">
+<meta property="og:description" content="逆矩阵">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-08-15T11:58:12.584Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="线性代数 05">
+<meta name="twitter:description" content="逆矩阵">
+
+
+
+
+
+
+  <link rel="canonical" href="https://samaelchen.github.io/linear_algebra_step5/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>线性代数 05 | 碎碎念</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120854058-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-120854058-1');
+</script>
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a75b41f44b70e58f40edd582552291cf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">碎碎念</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://samaelchen.github.io/linear_algebra_step5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Samael Chen">
+      <meta itemprop="description" content="活该没有性生活">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/profile/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="碎碎念">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">线性代数 05
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-06-20 00:00:00" itemprop="dateCreated datePublished" datetime="2018-06-20T00:00:00+08:00">2018-06-20</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/StatisticalLearning/" itemprop="url" rel="index"><span itemprop="name">统计学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>逆矩阵</p>
+<a id="more"></a>
+<p>假设，现在有一个向量<span class="math inline">\(v\)</span>，经过矩阵<span class="math inline">\(A\)</span>的变换，再经过矩阵<span class="math inline">\(B\)</span>的变换，向量不变。此外，先经过<span class="math inline">\(B\)</span>再经过<span class="math inline">\(A\)</span>，仍然得到<span class="math inline">\(v\)</span>。在这种情况下，我们就可以说<span class="math inline">\(A\)</span>和<span class="math inline">\(B\)</span>互逆。</p>
+<p>那么严格一点，如果<span class="math inline">\(n \times n\)</span>的矩阵<span class="math inline">\(A\)</span>是可逆的，那么会存在一个<span class="math inline">\(n \times n\)</span>的矩阵<span class="math inline">\(B\)</span>使得<span class="math inline">\(AB = BA = I\)</span>。在这种情况下，我们称<span class="math inline">\(B\)</span>是<span class="math inline">\(A\)</span>的一个逆矩阵，可以记为<span class="math inline">\(A^{-1}\)</span>。</p>
+<p>所以有一个很明显的点，当一个矩阵不是方阵的时候，必定是没有逆矩阵的。不过实际上在矩阵分析里面，这样的矩阵也可以求逆，叫做伪逆。</p>
+<p>此外，一个矩阵如果有逆矩阵，那么一定只有唯一的一个逆矩阵。这个其实很好证明： <span class="math display">\[
+AB = BA = I，AC = CA = I \\
+B = BI = B(AC) = (BA)C = IC = C
+\]</span></p>
+<p>那逆矩阵有什么用呢，用逆矩阵可以解之前的线性方程组，直接得到经过高斯消元法之后的结果。那实际上，逆矩阵求解对机器来说是没效率的，因为机器求逆矩阵就用了RREF。</p>
+<p>现在考虑一下，如果我们对矩阵的乘做逆运算会怎么样。也就是<span class="math inline">\((AB)^{-1}\)</span>。那么我们可以得到的是<span class="math inline">\((AB)^{-1} = B^{-1}A^{-1}\)</span>，这里要求两个矩阵都是可逆的。由此我们可以推广，<span class="math inline">\((A_1 A_2 \cdots A_k)^{-1} = A_k^{-1} \cdots A_2^{-1} A_1^{-1}\)</span>。</p>
+<p>那如果<span class="math inline">\(A\)</span>是可逆的，<span class="math inline">\(A^{\top}\)</span>是不是也是可逆呢？答案很明显是可逆的，可以求一下，<span class="math inline">\(AA^{-1} = (AA^{-1})^{\top} = (A^{-1})^{\top} A^{\top} = I\)</span>，然后反过来<span class="math inline">\(A^{-1}A = (A^{-1}A)^{\top} = A^{\top} (A^{-1})^{\top} = I\)</span>。所以我们就知道，<span class="math inline">\((A^{\top})^{-1} = (A^{-1})^{\top}\)</span>。</p>
+<p>那么如何判断一个矩阵是不是可逆的？在Elementary Linear Algebra里面，提供了十几种判断依据：</p>
+<blockquote>
+<ol type="a">
+<li><span class="math inline">\(A\)</span> is invertible.</li>
+<li>The reduced row echelon form of <span class="math inline">\(A\)</span> is <span class="math inline">\(I_n\)</span>.</li>
+<li>The rank of <span class="math inline">\(A\)</span> equals <span class="math inline">\(n\)</span>.</li>
+<li>The span of the columns of <span class="math inline">\(A\)</span> is <span class="math inline">\(R_n\)</span>.</li>
+<li>The equation <span class="math inline">\(Ax = b\)</span> is consistent for every <span class="math inline">\(b\)</span> in <span class="math inline">\(R_n\)</span>.</li>
+<li>The nullity of <span class="math inline">\(A\)</span> equals zero.</li>
+<li>The columns of <span class="math inline">\(A\)</span> are linearly independent.</li>
+<li>The only solution of <span class="math inline">\(Ax = 0\)</span> is <span class="math inline">\(\mathbf{0}\)</span>.</li>
+<li>There exists an <span class="math inline">\(n \times n\)</span> matrix <span class="math inline">\(B\)</span> such that <span class="math inline">\(BA = I_n\)</span>.</li>
+<li>There exists an <span class="math inline">\(n \times n\)</span> matrix <span class="math inline">\(C\)</span> such that <span class="math inline">\(AC = I_n\)</span>.</li>
+<li><span class="math inline">\(A\)</span> is a product of elementary matrices.</li>
+</ol>
+</blockquote>
+<p>也就是说，当一个矩阵<span class="math inline">\(A\)</span>是方阵时，如果<span class="math inline">\(A\)</span>可逆，上述的条件都是等价的。</p>
+<p>判断完是否可逆之后，如何计算逆矩阵呢？</p>
+<p>这里引入一个概念，叫做elementary matrix，比如说<span class="math inline">\(E = \begin{bmatrix} 1 &amp;0 &amp;0 \\ 0 &amp;0 &amp;1 \\ 0 &amp;1 &amp;0 \end{bmatrix}\)</span>。那这个变换矩阵的作用就是交换第二行和第三行。我们回顾一下，之前说的RREF其实做的事情就是多次的elementary matrix乘原来的矩阵。那么如果我们的RREF是单位矩阵，那么其实<span class="math inline">\(A\)</span>的逆矩阵就是这么多elementary matrix的乘积，不过这里要注意的是elementary matrix <span class="math inline">\(E\)</span>的顺序。</p>
+<p>矩阵的逆大概就是这么多内容，简单一点判断，如果矩阵是方阵，且满秩，就可逆。计算方法就用高斯消元法的那一套来。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>乞讨码</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://github.com/SamaelChen/samaelchen.github.io/raw/hexo/images/wechatpay.png" alt="Samael Chen WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/linear_algebra_step4/" rel="next" title="线性代数 04">
+                <i class="fa fa-chevron-left"></i> 线性代数 04
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/linear_algebra_step6/" rel="prev" title="线性代数 06">
+                线性代数 06 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDg5NS83NDQ0"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/profile/avatar.jpg"
+                alt="Samael Chen" />
+            
+              <p class="site-author-name" itemprop="name">Samael Chen</p>
+              <p class="site-description motion-element" itemprop="description">活该没有性生活</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">53</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:chc199310@gmail.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samael Chen</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="Total Visitors">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="Total Views">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

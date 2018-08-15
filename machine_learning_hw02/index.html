@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+<meta name="baidu-site-verification" content="0YbFtSUs3K" />
+<meta name="360-site-verification" content="e4a574f568678b9b725df6de1db257c5" />
+<meta name="msvalidate.01" content="B5A47A4FD6AB117AF1CE9EF8705A022C" />
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="好久没更，李宏毅第二次课程实操">
+<meta name="keywords" content="机器学习,分类算法,逻辑回归,生成模型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="台大李宏毅机器学习作业——分类算法">
+<meta property="og:url" content="https://samaelchen.github.io/machine_learning_hw02/index.html">
+<meta property="og:site_name" content="碎碎念">
+<meta property="og:description" content="好久没更，李宏毅第二次课程实操">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-08-15T11:58:12.584Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="台大李宏毅机器学习作业——分类算法">
+<meta name="twitter:description" content="好久没更，李宏毅第二次课程实操">
+
+
+
+
+
+
+  <link rel="canonical" href="https://samaelchen.github.io/machine_learning_hw02/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>台大李宏毅机器学习作业——分类算法 | 碎碎念</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120854058-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-120854058-1');
+</script>
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a75b41f44b70e58f40edd582552291cf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">碎碎念</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://samaelchen.github.io/machine_learning_hw02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Samael Chen">
+      <meta itemprop="description" content="活该没有性生活">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/profile/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="碎碎念">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">台大李宏毅机器学习作业——分类算法
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-12-26 00:00:00" itemprop="dateCreated datePublished" datetime="2017-12-26T00:00:00+08:00">2017-12-26</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/StatisticalLearning/" itemprop="url" rel="index"><span itemprop="name">统计学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>好久没更，李宏毅第二次课程实操</p>
+<a id="more"></a>
+<p>第二次作业主要做的是分类算法。分类算法分为Generative和Discriminate两种。Generative常见的比如朴素贝叶斯，Discriminator就多了，逻辑回归就是。这里实现两个不同的分类算法。</p>
+<p>首先是probabilistic generative model。概率生成模型其实就是根据数据分布的情况，拟合一种分布，计算条件概率，判断样本的类别。基本公式就是<span class="math inline">\(P(C_i | x) = \frac{P(x | C_i) P(C_i)}{\sum(P(x | C_i) P(C_i))}\)</span>。那需要用到概率分布的地方就是<span class="math inline">\(P(x | C_i)\)</span>这里，我们需要假设一个分布来拟合这个概率。一般而言，我们用正态分布比较多。之所以用正态分布多，可以回顾一下大数定律和中心极限定理。当数据量到了一定程度，就会呈现出正态分布。</p>
+<p>大概的原理可以看这篇<a href="https://samaelchen.github.io/machine_learning_step4/">博客</a>，不是一个很复杂的模型。这里用到的数据就是<a href="https://ntumlta.github.io/2017fall-ml-hw2/" target="_blank" rel="noopener">作业2</a>的示例数据，是一个二分类的数据。因为模型的公式已经很明显了，这里就直接将公式转化为代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gen_model</span><span class="params">(X_test, X_train, threshold=<span class="number">0.5</span>)</span>:</span></span><br><span class="line">    <span class="string">"""Generative model"""</span></span><br><span class="line">    D = X_train.shape[<span class="number">1</span>] / <span class="number">2</span></span><br><span class="line">    a = X_train.loc[X_train[<span class="string">'y'</span>] == <span class="number">0</span>, :].drop(<span class="string">'y'</span>, axis=<span class="number">1</span>)</span><br><span class="line">    mu1 = a.mean()</span><br><span class="line">    tmp1 = pd.DataFrame(X_test - mu1)</span><br><span class="line">    b = X_train.loc[X_train[<span class="string">'y'</span>] != <span class="number">0</span>, :].drop(<span class="string">'y'</span>, axis=<span class="number">1</span>)</span><br><span class="line">    mu2 = b.mean()</span><br><span class="line">    tmp2 = pd.DataFrame(X_test - mu2)</span><br><span class="line">    <span class="comment"># 这里的协方差矩阵是两个类别的协方差矩阵的加权平均。通常来说用加权平均的效果比较好。</span></span><br><span class="line">    sigma = a.shape[<span class="number">0</span>] / len(X) * np.cov(a.T, bias=<span class="keyword">True</span>) + b.shape[<span class="number">0</span>] / len(X_train) * np.cov(b.T, bias=<span class="keyword">True</span>)</span><br><span class="line">    sigma_det = <span class="number">1</span> / np.sqrt(np.linalg.det(sigma))</span><br><span class="line">    <span class="comment"># 这里用伪逆，实际上不用伪逆问题也不大</span></span><br><span class="line">    sigma_pinv = np.linalg.pinv(sigma)</span><br><span class="line">    <span class="comment"># 这里要注意，我直接算的是矩阵，而不是一行一行的算。那么直接计算矩阵的时候其实就只要拿对角线元素就可以了。为什么直接取对角线元素，可以回顾一下MIT的线性代数课程。</span></span><br><span class="line">    array1 = np.diag(np.dot(tmp1, sigma_pinv).dot(tmp1.T))</span><br><span class="line">    array2 = np.diag(np.dot(tmp2, sigma_pinv).dot(tmp2.T))</span><br><span class="line">    gauss1 = np.power(<span class="number">2</span> * np.pi, -D) * sigma_det * np.exp(<span class="number">-0.5</span> * array1)</span><br><span class="line">    gauss2 = np.power(<span class="number">2</span> * np.pi, -D) * sigma_det * np.exp(<span class="number">-0.5</span> * array2)</span><br><span class="line">    prob1 = gauss1 * a.shape[<span class="number">0</span>] / len(X)</span><br><span class="line">    prob2 = gauss2 * b.shape[<span class="number">0</span>] / len(X)</span><br><span class="line">    prob = prob1 / (prob1 + prob2)</span><br><span class="line">    prob[np.isnan(prob)] = <span class="number">0</span></span><br><span class="line">    <span class="comment"># 这里用了一个阈值，其实也可以按照每个类别的先验概率来分类。个人以为比较合理，但是实际上未必效果最好。五五开也是一种常见的方法。</span></span><br><span class="line">    prob[prob &gt;= threshold] = <span class="number">0</span></span><br><span class="line">    prob[prob != <span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> prob</span><br></pre></td></tr></table></figure>
+<p>那实际上这样概率生成模型就结束了。从某种程度而言，概率生成模型是不存在训练测试的。</p>
+<p>这里顺带提一下用的几个包：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> classification_report</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</span><br><span class="line"><span class="keyword">import</span> time</span><br></pre></td></tr></table></figure>
+<p>其实sklearn的几个metric可以自己写，但是这里偷懒了。原则上还是自己实现核心算法。</p>
+<p>相对而言，逻辑回归就比较简单了，大概过程跟线性回归是一样的，用梯度下降去找<span class="math inline">\(w\)</span>。原理看这篇<a href="https://samaelchen.github.io/machine_learning_step5/">博客</a>。所以实现也很简单：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigma</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> / (<span class="number">1</span> + np.exp(-x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">minibatch_sgd</span><span class="params">(X, y_true, w, eta=<span class="number">0.1</span>, epoch=<span class="number">10</span>, batch_size=<span class="number">100</span>)</span>:</span></span><br><span class="line">    rounds = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> rounds &lt; epoch:</span><br><span class="line">        start = time.time()</span><br><span class="line">        start_index = <span class="number">0</span></span><br><span class="line">        sum_error = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> start_index &lt; (X.shape[<span class="number">0</span>] - <span class="number">1</span> - batch_size):</span><br><span class="line">            end_index = start_index + batch_size</span><br><span class="line">            <span class="keyword">if</span> end_index &gt; X.shape[<span class="number">0</span>]:</span><br><span class="line">                end_index = X.shape[<span class="number">0</span>] - <span class="number">1</span></span><br><span class="line">            X_batch = X.iloc[start_index:end_index, :]</span><br><span class="line">            error = sigma(np.dot(X_batch, w)) - y_true[start_index:end_index].values</span><br><span class="line">            sum_error += sum(error)</span><br><span class="line">            w -= eta * np.dot(X_batch.T, error)</span><br><span class="line">            start_index += batch_size</span><br><span class="line">        rounds += <span class="number">1</span></span><br><span class="line">        end = time.time()</span><br><span class="line">        accuracy = accuracy_score(sigma(np.dot(X, w)), y_true)</span><br><span class="line">        print(<span class="string">'epoch: '</span> + str(rounds) + <span class="string">'  time: '</span>+ str(round(end - start, <span class="number">2</span>)) + <span class="string">'s'</span> + <span class="string">'   error: '</span> + str(sum_error) + <span class="string">'  accuracy: '</span> + str(accuracy))</span><br><span class="line">    <span class="keyword">return</span>(w)</span><br></pre></td></tr></table></figure>
+<p>这里用的是minibatch_sgd，速度会快一点。但是不知道为什么我这边跑的每一个epoch的loss都会乱荡，有点尴尬，后面再仔细debug。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>乞讨码</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://github.com/SamaelChen/samaelchen.github.io/raw/hexo/images/wechatpay.png" alt="Samael Chen WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/machine_learning_step18/" rel="next" title="台大李宏毅机器学习——SVM">
+                <i class="fa fa-chevron-left"></i> 台大李宏毅机器学习——SVM
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/machine_learning_hw03/" rel="prev" title="台大李宏毅机器学习作业——CNN visualization">
+                台大李宏毅机器学习作业——CNN visualization <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDg5NS83NDQ0"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/profile/avatar.jpg"
+                alt="Samael Chen" />
+            
+              <p class="site-author-name" itemprop="name">Samael Chen</p>
+              <p class="site-description motion-element" itemprop="description">活该没有性生活</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">53</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:chc199310@gmail.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samael Chen</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="Total Visitors">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="Total Views">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

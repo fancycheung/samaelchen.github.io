@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+<meta name="baidu-site-verification" content="0YbFtSUs3K" />
+<meta name="360-site-verification" content="e4a574f568678b9b725df6de1db257c5" />
+<meta name="msvalidate.01" content="B5A47A4FD6AB117AF1CE9EF8705A022C" />
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="神经网络自2012年躲过世界末日后开始寒武纪大爆发的既视感，从最原始的FC开始出现了各种很风骚的操作。这里介绍三种特殊的结构：spatial transformer layer，highway network &amp;amp; grid LSTM，还有recursive network。">
+<meta name="keywords" content="深度学习, spatial transformer, highway network, recursive network">
+<meta property="og:type" content="article">
+<meta property="og:title" content="台大李宏毅深度学习——神经网络一些骚操作">
+<meta property="og:url" content="https://samaelchen.github.io/deep_learning_step4/index.html">
+<meta property="og:site_name" content="碎碎念">
+<meta property="og:description" content="神经网络自2012年躲过世界末日后开始寒武纪大爆发的既视感，从最原始的FC开始出现了各种很风骚的操作。这里介绍三种特殊的结构：spatial transformer layer，highway network &amp;amp; grid LSTM，还有recursive network。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.imgur.com/CSnxAU6.png">
+<meta property="og:image" content="https://i.imgur.com/XIBMatZ.png">
+<meta property="og:image" content="https://i.imgur.com/b7IprgN.png">
+<meta property="og:image" content="https://i.imgur.com/x0Za3Tx.gif">
+<meta property="og:image" content="https://i.imgur.com/IDeic8W.png">
+<meta property="og:image" content="https://i.imgur.com/L4cqtdk.png">
+<meta property="og:image" content="https://i.imgur.com/SsDSDuy.png">
+<meta property="og:image" content="https://i.imgur.com/hDTBRrE.png">
+<meta property="og:image" content="https://i.imgur.com/BUWr2kn.png">
+<meta property="og:image" content="https://i.imgur.com/SgEEBbw.png">
+<meta property="og:image" content="https://i.imgur.com/YFhqVos.png">
+<meta property="og:image" content="https://i.imgur.com/E4Gt3UC.png">
+<meta property="og:updated_time" content="2018-08-15T11:58:12.584Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="台大李宏毅深度学习——神经网络一些骚操作">
+<meta name="twitter:description" content="神经网络自2012年躲过世界末日后开始寒武纪大爆发的既视感，从最原始的FC开始出现了各种很风骚的操作。这里介绍三种特殊的结构：spatial transformer layer，highway network &amp;amp; grid LSTM，还有recursive network。">
+<meta name="twitter:image" content="https://i.imgur.com/CSnxAU6.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://samaelchen.github.io/deep_learning_step4/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>台大李宏毅深度学习——神经网络一些骚操作 | 碎碎念</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120854058-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-120854058-1');
+</script>
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a75b41f44b70e58f40edd582552291cf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">碎碎念</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://samaelchen.github.io/deep_learning_step4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Samael Chen">
+      <meta itemprop="description" content="活该没有性生活">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/profile/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="碎碎念">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">台大李宏毅深度学习——神经网络一些骚操作
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-23 00:00:00" itemprop="dateCreated datePublished" datetime="2018-07-23T00:00:00+08:00">2018-07-23</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/DeepLearning/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>神经网络自2012年躲过世界末日后开始寒武纪大爆发的既视感，从最原始的FC开始出现了各种很风骚的操作。这里介绍三种特殊的结构：spatial transformer layer，highway network &amp; grid LSTM，还有recursive network。</p>
+<a id="more"></a>
+<h1 id="spatial-transformer">Spatial Transformer</h1>
+<p>CNN是这一次深度学习大爆发的导火线，但是CNN有非常明显的缺陷。如果一个图像里的元素发生了旋转、位移、缩放等等变换，那么CNN的filter就不认识同样的元素了。也就是说，对于CNN而言，如果现在训练数字识别，喂进去的数据全是规整的，那么倾斜的数字可能就不认识了。</p>
+<p>其实从某种意义上来说，这个就是过拟合了，每个filter能做的事情是非常固定的。不过换个角度来看，是不是也能理解为数据过分干净了？</p>
+<p>那么为了解决这样的问题，其实有很多解决方案，比如说增加样本量是最简单粗暴的方法，通过image augment就可以得到海量的训练数据。另外一般CNN里面的pooling层也是解决这个问题的，不过受限于pooling filter的size大小，一般来说很难做到全图级别的transform。另外一种做法就是spatial transformer。实际上，spatial transformer layer我感觉上就是嵌入网络的image augment，或者说是有导向性的image augment。这样的做法可以减少无脑augment带来太多的噪音。个人理解不一定对。这种方法是DeepMind提出的，论文就是<a href="https://arxiv.org/pdf/1506.02025.pdf" target="_blank" rel="noopener">Spatial Transformer Networks</a>。</p>
+<p>首先看一下如果要对图像进行transform的操作，我们应该怎么做？对于一个图像里的像素而言有两个下标<span class="math inline">\((x,y)\)</span>来表示位置，那么我们就可以将这个看作是一个向量。这样以来，我们只需要通过一个二阶方阵就可以操作图像的缩放和旋转，然后加上一个二维向量就可以控制图片的平移。也就是说 <span class="math display">\[\begin{bmatrix}x&#39; \\ y&#39; \end{bmatrix} = \begin{bmatrix}a &amp; b \\ c &amp; d \end{bmatrix} \begin{bmatrix}x \\ y \end{bmatrix} + \begin{bmatrix}e \\ f \end{bmatrix}\]</span></p>
+<p>当然，简洁一点可以写成： <span class="math display">\[
+\begin{bmatrix}x&#39; \\ y&#39; \end{bmatrix} = \begin{bmatrix}a &amp; b &amp; c \\ d &amp; e &amp; f \end{bmatrix} \begin{bmatrix}x \\ y \\ 1 \end{bmatrix}
+\]</span> 两个公式的元素没有严格对应，不过意思一样。</p>
+<p>但是这里需要注意的事情是，比如我们原来输入的图片是<span class="math inline">\(3 \times 3\)</span>的，我们输出的还是一个<span class="math inline">\(3 \times 3\)</span>的图片，而位置变换后超出下标的部分我们就直接丢弃掉，而原来有值，现在没有值的部分就填0。示意图如下：</p>
+<p><img src="https://i.imgur.com/CSnxAU6.png"></p>
+<p>然后有一点我一直没理解的点就是，在论文里面上一个等式的左边是source layer，右边的是target layer。直观上从forward的方向上看，数据从上一层到下一层，那么变化就应该是第一层经过变化后变到第二层。</p>
+<p>论文里面没有太解释为什么会是这样的操作，看了一些别人的博客，大部分人也说得不清不楚的。个人的感觉吧，为了这么做是为了保证输出的feature map的维度能够保持不变，论文里面有一个示例图：</p>
+<p align="center">
+<img src="https://i.imgur.com/XIBMatZ.png" width="70%">
+</p>
+<p>从图上面看的话，target和source都是保持不变的，唯一变换的是source上的sampling grid（感觉这么说也不太对，sampling grid的像素点数量其实也没变，就是位置或者说形状变了）。而这个sampling grid就是将target的网格坐标通过上面的公式做仿射变换得到的。那如果反过来，也就是说我们直接用source做放射变换的话，很可能得到的target是不规整的。所以应该说spatial transformer layer做的事情是学习我们正常理解的仿射变换的逆矩阵。比较神奇的是这个用bp居然可以自己学出来。</p>
+<p>那么这里就会有个问题，因为sampling grid的像素点其实是没有变过的，所以这就意味着说仿射变换的结果很可能得到是小数的index。比如说<span class="math inline">\(\begin{bmatrix}1.6 \\ 2.4 \end{bmatrix} = \begin{bmatrix}0 &amp; 0.5 \\ 1 &amp; 0 \end{bmatrix} \begin{bmatrix}2 \\ 2 \end{bmatrix} + \begin{bmatrix}0.6 \\ 0.4 \end{bmatrix}\)</span>，那么这个时候要怎么办呢？如果我们按照就近原则的话，那么这个位置又会被定位到原图的<span class="math inline">\([2, 2]\)</span>这个位置，那么梯度就会变成0。所以这样是不行的，那么为了可以进行bp，论文里面采用了双线性插值的方法。也就是说，用离这个位置最近的四个顶点的像素，按照距离的比例作为权重，然后加权平均来填补这个位置的像素。</p>
+<p>这个算法大概原理如下：</p>
+<p align="center">
+<img src="https://i.imgur.com/b7IprgN.png" width="50%">
+</p>
+<p>我们现在想要求中间绿色点的像素，那么我们先算出<span class="math inline">\(R_1\)</span>和<span class="math inline">\(R_2\)</span>的像素： <span class="math display">\[
+R_1 = \frac{x_2 - x}{x_2 - x_1}Q_{11} + \frac{x - x_1}{x_2 - x_1}Q_{21} \\
+R_2 = \frac{x_2 - x}{x_2 - x_1}Q_{12} + \frac{x - x_1}{x_2 - x_1}Q_{22}
+\]</span> 然后计算<span class="math inline">\(P\)</span>的像素： <span class="math display">\[
+\boxed{P = \frac{y_2 - y}{y_2 - y_1}R_1 + \frac{y - y_1}{y_2 - y_1}R_2}
+\]</span></p>
+<p>那么在DeepMind的试验里面，在卷基层里面加入了ST层之后，收敛以后target得到的输出大体上都是不变的。就像下图：</p>
+<p align="center">
+<img src="https://i.imgur.com/x0Za3Tx.gif">
+</p>
+<p>另外就是这个变换矩阵，如果我们强行让这个矩阵长成<span class="math inline">\(\begin{bmatrix}1 &amp; 0 &amp; a \\ 0 &amp; 1 &amp; b \end{bmatrix}\)</span>，那么就会变成attention模式，网络自己会去原图上面扫描，这样就会知道模型在训练的时候关注图片的哪个位置。看起来就像下图：</p>
+<p align="center">
+<img src="https://i.imgur.com/IDeic8W.png" width="70%">
+</p>
+<p>上面那一排的网络有两个ST layer，大体上可以看出来，红色的框都是在鸟头的位置，绿色的框都是在鸟身的位置。</p>
+<h1 id="highway-network-grid-lstm">Highway network &amp; Grid LSTM</h1>
+<p>Highway network最早是<a href="https://arxiv.org/pdf/1505.00387.pdf" target="_blank" rel="noopener">Highway Networks</a>和<a href="https://arxiv.org/pdf/1507.06228.pdf" target="_blank" rel="noopener">Training Very Deep Networks</a>这两篇论文提出的。Highway network实际上受到了LSTM的启发，从结构上来看，深层的前馈网络其实和LSTM非常的像，如下图：</p>
+<p align="center">
+<img src="https://i.imgur.com/L4cqtdk.png" width="80%">
+</p>
+<p>所以二者的差别就在于，在前馈中只有一个input，而LSTM中每一层都要把这一个时刻的x也作为输入。所以很自然的一个想法，在LSTM中有一个forget gate决定要记住以前多久的信息，那么在前馈网络中也可以引入一个gate来决定有哪些之前的信息干脆就不要了，又或者有哪些以前的信息直接在后面拿来用。那最简单LSTM变种是GRU，所以highway network借鉴了GRU的方法，把reset gate拿掉，再把每个阶段的x拿掉。</p>
+<p>所以将GRU简化一下再竖起来，我们就可以得到highway network：</p>
+<p align="center">
+<img src="https://i.imgur.com/SsDSDuy.png" width="70%">
+</p>
+<p>那么模仿GRU的计算方法，我们计算<span class="math inline">\(h&#39; = \sigma(Wa^{t-1})\)</span>，<span class="math inline">\(z = \sigma(W^z a^{t-1})\)</span>，所以<span class="math inline">\(a^t = z \odot a^{t-1} + (1-z) \odot h&#39;\)</span>。</p>
+<p>而后面微软的<a href="https://arxiv.org/pdf/1512.03385.pdf" target="_blank" rel="noopener">ResNet</a>其实就是一个highway network的特别版本：</p>
+<p align="center">
+<img src="https://i.imgur.com/hDTBRrE.png" width="60%">
+</p>
+<p>当然感觉也可以将ResNet看做是竖起来的LSTM。那ResNet里面的变换可以是很多层的，所以在现在的实现中，很常见的一个情况是将这个东西叫做一个residual block。</p>
+<p>所以利用highway network有一个非常明显的好处就是可以避免前馈网络太深的时候会导致梯度消失的问题。另外有一个好处就是通过highway network可以让网络自己去学习到底哪个layer是有用的。</p>
+<p>那既然可以将深度的记忆传递下去，那么这样的操作也可以用到LSTM里面，也就是grid LSTM。一般的LSTM是通过forget gate将时间方向上的信息传递下去的，但是并没有将layer之间的信息传递下去。因此grid LSTM就是加一个参数纵向传递，从而将layer的信息传递下去，直观上来说，就是在<span class="math inline">\(y\)</span>后面再拼一个vector，然后这个vector的作用跟<span class="math inline">\(c\)</span>一样。具体的可以看一下DeepMind的这篇论文，<a href="https://arxiv.org/pdf/1507.01526v1.pdf" target="_blank" rel="noopener">Grid LSTM</a>。粗略来说，结构上像这样：</p>
+<p align="center">
+<img src="https://i.imgur.com/BUWr2kn.png" width="60%">
+</p>
+<p>那有2D的grid LSTM很自然就会有3D的grid LSTM，套路都是差不多的。不过我还没想到的是，3D的grid LSTM要用在什么场景当中，多个output？！</p>
+<h1 id="recursive-structure">Recursive Structure</h1>
+<p>遥想当年刚接触RNN的时候根本分不清recursive network和recurrent network，一个是递归神经网络，一个是循环神经网络，傻傻分不清。但是实际上，recurrent network可以看作是recursive network的特殊结构。Recursive network本身是需要事先定义好结构的，比如：</p>
+<p align="center">
+<img src="https://i.imgur.com/SgEEBbw.png" width="60%">
+</p>
+<p>那常见的recurrent network其实也可以看做是这样的一个树结构的recursive network。Recursive network感觉上好像也没什么特别有意思的东西，比较有趣的就是这边<span class="math inline">\(f\)</span>的设计。比如说现在想要让机器学会做句子的情感分析，那么很简单的一个想法就是把每一个词embedding，然后放到网络里面训练，那么我们可以用这样的一个结构：</p>
+<p align="center">
+<img src="https://i.imgur.com/YFhqVos.png" width="60%">
+</p>
+<p>因为在自然语言里面会有一些类似否定之否定的语法，所以我们希望说very出现的时候是加强语气，但是not出现的时候就是否定之前的。如果用数学的语言来表达，这不就是乘以一个系数嘛。所以在这样的情况下，如果我们只是简单的加减操作，那么就没有办法实现这种“乘法”操作。所以这个时候，我们的<span class="math inline">\(f\)</span>设计就会有点技巧：</p>
+<p align="center">
+<img src="https://i.imgur.com/E4Gt3UC.png" width="60%">
+</p>
+<p>那么看一下这个设计。如果我们直接采用最传统的做法，就是将<span class="math inline">\(a\)</span>和<span class="math inline">\(b\)</span>直接concat起来，然后乘以一个矩阵<span class="math inline">\(W\)</span>，再经过一个激活函数变换，这样的操作其实只能做到线性的关系，个人感觉，实际上这样的设计会将<span class="math inline">\(a\)</span>和<span class="math inline">\(b\)</span>的一些交互特性变成隐藏特征保存在<span class="math inline">\(W\)</span>当中，但是一旦输入变化了，这些隐藏的特征却不能被传递出来，所以效果不好。</p>
+<p>因此下面的一种设计就比较骚气，后面还是传统的做法，但是前面加上了一个vector。这个vector的元素就是来学习这些词之间的interaction，然后将这些interaction变成bias，因为recursive network的function都是不变的，因此这些bias就这样被传递下去了。那么这里有一个需要注意的就是，我们这里有几个词，那我们就需要多少个bias，而且每个bias中间的这个矩阵<span class="math inline">\(W\)</span>都是不一样的。</p>
+<p>这是三个比较骚气的网络结构变换，感觉看了这么多，好多网络之间都是殊途同归啊，会不会最后有一个非常general的网络结构出现，使得现在的每一种网络都是其一种特殊情况呢？</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>乞讨码</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://github.com/SamaelChen/samaelchen.github.io/raw/hexo/images/wechatpay.png" alt="Samael Chen WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/economics_thoughts_notes4/" rel="next" title="经济思想史读书笔记——亚当·斯密">
+                <i class="fa fa-chevron-left"></i> 经济思想史读书笔记——亚当·斯密
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/word2vec_pytorch/" rel="prev" title="word2vec的PyTorch实现">
+                word2vec的PyTorch实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDg5NS83NDQ0"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/profile/avatar.jpg"
+                alt="Samael Chen" />
+            
+              <p class="site-author-name" itemprop="name">Samael Chen</p>
+              <p class="site-description motion-element" itemprop="description">活该没有性生活</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">53</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:chc199310@gmail.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#spatial-transformer"><span class="nav-number">1.</span> <span class="nav-text">Spatial Transformer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#highway-network-grid-lstm"><span class="nav-number">2.</span> <span class="nav-text">Highway network &amp; Grid LSTM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#recursive-structure"><span class="nav-number">3.</span> <span class="nav-text">Recursive Structure</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samael Chen</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="Total Visitors">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="Total Views">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

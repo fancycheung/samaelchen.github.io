@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+<meta name="baidu-site-verification" content="0YbFtSUs3K" />
+<meta name="360-site-verification" content="e4a574f568678b9b725df6de1db257c5" />
+<meta name="msvalidate.01" content="B5A47A4FD6AB117AF1CE9EF8705A022C" />
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="基于PyTorch的LSTM实现。">
+<meta name="keywords" content="pytorch,lstm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LSTM的PyTorch实现">
+<meta property="og:url" content="https://samaelchen.github.io/LSTM-pytorch/index.html">
+<meta property="og:site_name" content="碎碎念">
+<meta property="og:description" content="基于PyTorch的LSTM实现。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-08-15T11:58:12.580Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LSTM的PyTorch实现">
+<meta name="twitter:description" content="基于PyTorch的LSTM实现。">
+
+
+
+
+
+
+  <link rel="canonical" href="https://samaelchen.github.io/LSTM-pytorch/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>LSTM的PyTorch实现 | 碎碎念</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120854058-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-120854058-1');
+</script>
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a75b41f44b70e58f40edd582552291cf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">碎碎念</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://samaelchen.github.io/LSTM-pytorch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Samael Chen">
+      <meta itemprop="description" content="活该没有性生活">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/profile/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="碎碎念">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">LSTM的PyTorch实现
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-06-19 00:00:00" itemprop="dateCreated datePublished" datetime="2018-06-19T00:00:00+08:00">2018-06-19</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PyTorch/" itemprop="url" rel="index"><span itemprop="name">PyTorch</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>基于PyTorch的LSTM实现。</p>
+<a id="more"></a>
+<p>PyTorch封装了很多常用的神经网络，要实现LSTM非常的容易。这里用官网的实例修改实现练习里面的character level LSTM。</p>
+<p>首先还是老样子，import需要的module： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"></span><br><span class="line">torch.manual_seed(<span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
+<p>然后为了将数据放到网络里面，我们需要做一个编码单词的函数： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">prepare_char_sequence</span><span class="params">(word, to_ix)</span>:</span></span><br><span class="line">    idxs = [to_ix[char] <span class="keyword">for</span> char <span class="keyword">in</span> word]</span><br><span class="line">    <span class="keyword">return</span>(torch.tensor(idxs, dtype=torch.long))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">prepare_sequence</span><span class="params">(seq, to_ix)</span>:</span></span><br><span class="line">    idxs = [to_ix[w] <span class="keyword">for</span> w <span class="keyword">in</span> seq]</span><br><span class="line">    char_idxs = [prepare_char_sequence(w, char_to_ix) <span class="keyword">for</span> w <span class="keyword">in</span> seq]</span><br><span class="line">    <span class="keyword">return</span> torch.tensor(idxs, dtype=torch.long), char_idxs</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">training_data = [</span><br><span class="line">    (<span class="string">"The dog ate the apple"</span>.split(), [<span class="string">"DET"</span>, <span class="string">"NN"</span>, <span class="string">"V"</span>, <span class="string">"DET"</span>, <span class="string">"NN"</span>]),</span><br><span class="line">    (<span class="string">"Everybody read that book"</span>.split(), [<span class="string">"NN"</span>, <span class="string">"V"</span>, <span class="string">"DET"</span>, <span class="string">"NN"</span>])</span><br><span class="line">]</span><br><span class="line">word_to_ix = &#123;&#125;</span><br><span class="line">char_to_ix = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> sent, tags <span class="keyword">in</span> training_data:</span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> sent:</span><br><span class="line">        <span class="keyword">if</span> word <span class="keyword">not</span> <span class="keyword">in</span> word_to_ix:</span><br><span class="line">            word_to_ix[word] = len(word_to_ix)</span><br><span class="line">        <span class="keyword">for</span> char <span class="keyword">in</span> word:</span><br><span class="line">            <span class="keyword">if</span> char <span class="keyword">not</span> <span class="keyword">in</span> char_to_ix:</span><br><span class="line">                char_to_ix[char] = len(char_to_ix)</span><br><span class="line">print(word_to_ix)</span><br><span class="line">print(char_to_ix)</span><br><span class="line"></span><br><span class="line">tag_to_ix = &#123;<span class="string">"DET"</span>: <span class="number">0</span>, <span class="string">"NN"</span>: <span class="number">1</span>, <span class="string">"V"</span>: <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># These will usually be more like 32 or 64 dimensional.</span></span><br><span class="line"><span class="comment"># We will keep them small, so we can see how the weights change as we train.</span></span><br><span class="line">WORD_EMBEDDING_DIM = <span class="number">5</span></span><br><span class="line">CHAR_EMBEDDING_DIM = <span class="number">5</span></span><br><span class="line">CHAR_HIDDEN_DIM = <span class="number">3</span></span><br><span class="line">WORD_HIDDEN_DIM = <span class="number">6</span></span><br></pre></td></tr></table></figure></p>
+<p>其实这里想想，如果是全文本，我们的character level编码也就26个字母表那么多。</p>
+<p>然后我们定义一个character level的网络： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LSTMTagger</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, char_embedding_dim, word_embedding_dim, char_hidden_dim, word_hidden_dim, char_size, vocab_size, tagset_size)</span>:</span></span><br><span class="line">        super(LSTMTagger, self).__init__()</span><br><span class="line">        self.char_embedding_dim = char_embedding_dim</span><br><span class="line">        self.word_embedding_dim = word_embedding_dim</span><br><span class="line">        self.char_hidden_dim = char_hidden_dim</span><br><span class="line">        self.word_hidden_dim = word_hidden_dim</span><br><span class="line">        self.char_embeddings = nn.Embedding(char_size, char_embedding_dim)</span><br><span class="line">        self.word_embeddings = nn.Embedding(vocab_size, word_embedding_dim)</span><br><span class="line"></span><br><span class="line">        self.char_lstm = nn.LSTM(char_embedding_dim, char_hidden_dim)</span><br><span class="line">        self.word_lstm = nn.LSTM((word_embedding_dim + char_hidden_dim), word_hidden_dim)</span><br><span class="line"></span><br><span class="line">        self.hidden2tag = nn.Linear(word_hidden_dim, tagset_size)</span><br><span class="line">        self.char_hidden = self.init_hidden(self.char_hidden_dim)</span><br><span class="line">        self.word_hidden = self.init_hidden(self.word_hidden_dim)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">init_hidden</span><span class="params">(self, hidden_dim)</span>:</span></span><br><span class="line">        <span class="keyword">return</span>(torch.zeros(<span class="number">1</span>, <span class="number">1</span>, hidden_dim),</span><br><span class="line">               torch.zeros(<span class="number">1</span>, <span class="number">1</span>, hidden_dim))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, sentence)</span>:</span></span><br><span class="line">        char_lstm_result = []</span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> sentence[<span class="number">1</span>]:</span><br><span class="line">            self.char_hidden = self.init_hidden(self.char_hidden_dim)</span><br><span class="line">            char_embeds = self.char_embeddings(word)</span><br><span class="line">            lstm_char_out, self.char_hidden = self.char_lstm(char_embeds.view(len(word), <span class="number">1</span>, <span class="number">-1</span>), self.char_hidden)</span><br><span class="line">            char_lstm_result.append(lstm_char_out[<span class="number">-1</span>])</span><br><span class="line"></span><br><span class="line">        word_embeds = self.word_embeddings(sentence[<span class="number">0</span>])</span><br><span class="line">        char_lstm_result = torch.stack(char_lstm_result)</span><br><span class="line">        lstm_in = torch.cat((word_embeds.view(len(sentence[<span class="number">0</span>]), <span class="number">1</span>, <span class="number">-1</span>), char_lstm_result), <span class="number">2</span>)</span><br><span class="line">        lstm_out, self.hidden = self.word_lstm(lstm_in, self.word_hidden)</span><br><span class="line">        tag_space = self.hidden2tag(lstm_out.view(len(sentence[<span class="number">0</span>]), <span class="number">-1</span>))</span><br><span class="line">        tag_scores = F.log_softmax(tag_space, dim=<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> tag_scores</span><br></pre></td></tr></table></figure></p>
+<p>在forward部分可以看到，这里有两个LSTM。第一个LSTM做的事情是将character拼成word，相当于是返回了一个character level的word embedding。然后用这个embedding和直接embedding的word vector拼到一起，放到第二个LSTM里面训练词性标注。另外要注意的是，这里虽然有两个LSTM模型，但是我们并没有定义第一个LSTM的loss function。因为我们要让这个网络按照最后词性标注的效果来训练，因此我们不需要定义这个网络的loss function。</p>
+<p>定义一下相关的参数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model = LSTMTagger(CHAR_EMBEDDING_DIM, WORD_EMBEDDING_DIM, CHAR_HIDDEN_DIM, WORD_HIDDEN_DIM, len(char_to_ix), len(word_to_ix), len(tag_to_ix))</span><br><span class="line">loss_function = nn.NLLLoss()</span><br><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="number">0.1</span>)</span><br></pre></td></tr></table></figure>
+<p>看一下训练前的输出结果是什么： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    inputs = prepare_sequence(training_data[<span class="number">0</span>][<span class="number">0</span>], word_to_ix)</span><br><span class="line">    tag_scores = model(inputs)</span><br><span class="line">    print(tag_scores)</span><br></pre></td></tr></table></figure></p>
+<p>再看一下训练300轮之后的结果： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">300</span>):</span><br><span class="line">    <span class="keyword">for</span> sentence, tags <span class="keyword">in</span> training_data:</span><br><span class="line">        model.zero_grad()</span><br><span class="line">        model.hidden = model.init_hidden(WORD_EMBEDDING_DIM)</span><br><span class="line">        sentence_in = prepare_sequence(sentence, word_to_ix)</span><br><span class="line">        targets = prepare_char_sequence(tags, tag_to_ix)</span><br><span class="line">        tag_scores = model(sentence_in)</span><br><span class="line"></span><br><span class="line">        loss = loss_function(tag_scores, targets)</span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    inputs = prepare_sequence(training_data[<span class="number">0</span>][<span class="number">0</span>], word_to_ix)</span><br><span class="line">    tag_scores = model(inputs)</span><br><span class="line">    print(tag_scores)</span><br></pre></td></tr></table></figure></p>
+<p>一般而言，character level的LSTM会比word level的更有效果。这里因为是一个toy级别的，看不出太显著的差别来。如果是海量数据，一般而言会有比较明显的效果。</p>
+<p>另外，原来的example是单向的LSTM，这里顺便做一个双向的。其实双向的LSTM就是正向一个，反向再一个，所以hidden的部分是两倍。所以要修改的地方就是网络的定义，将单向LSTM的hidden乘以2就好了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LSTMTagger</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, embedding_dim, hidden_dim, vocab_size, tagset_size)</span>:</span></span><br><span class="line">        super(LSTMTagger, self).__init__()</span><br><span class="line">        self.hidden_dim = hidden_dim</span><br><span class="line">        self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)</span><br><span class="line"></span><br><span class="line">        self.lstm = nn.LSTM(embedding_dim, hidden_dim, bidirectional=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">        self.hidden2tag = nn.Linear(hidden_dim * <span class="number">2</span>, tagset_size)</span><br><span class="line">        self.hidden = self.init_hidden()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">init_hidden</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span>(torch.zeros(<span class="number">1</span> * <span class="number">2</span>, <span class="number">1</span>, self.hidden_dim),</span><br><span class="line">               torch.zeros(<span class="number">1</span> * <span class="number">2</span>, <span class="number">1</span>, self.hidden_dim))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, sentence)</span>:</span></span><br><span class="line">        embeds = self.word_embeddings(sentence)</span><br><span class="line">        lstm_out, self.hidden = self.lstm(</span><br><span class="line">            embeds.view(len(sentence), <span class="number">1</span>, <span class="number">-1</span>), self.hidden)</span><br><span class="line">        tag_space = self.hidden2tag(lstm_out.view(len(sentence), <span class="number">-1</span>))</span><br><span class="line">        tag_scores = F.log_softmax(tag_space, dim=<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> tag_scores</span><br></pre></td></tr></table></figure>
+<p>这样就简单实现了一个toy级别的双向LSTM和character level的单向LSTM。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>乞讨码</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://github.com/SamaelChen/samaelchen.github.io/raw/hexo/images/wechatpay.png" alt="Samael Chen WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/linear_algebra_step3/" rel="next" title="线性代数 03">
+                <i class="fa fa-chevron-left"></i> 线性代数 03
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/linear_algebra_step4/" rel="prev" title="线性代数 04">
+                线性代数 04 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDg5NS83NDQ0"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/profile/avatar.jpg"
+                alt="Samael Chen" />
+            
+              <p class="site-author-name" itemprop="name">Samael Chen</p>
+              <p class="site-description motion-element" itemprop="description">活该没有性生活</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">53</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:chc199310@gmail.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samael Chen</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="Total Visitors">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="Total Views">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+<meta name="baidu-site-verification" content="0YbFtSUs3K" />
+<meta name="360-site-verification" content="e4a574f568678b9b725df6de1db257c5" />
+<meta name="msvalidate.01" content="B5A47A4FD6AB117AF1CE9EF8705A022C" />
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="关于梯度下降的理论基础">
+<meta name="keywords" content="机器学习, 梯度下降">
+<meta property="og:type" content="article">
+<meta property="og:title" content="台大李宏毅机器学习——梯度下降">
+<meta property="og:url" content="https://samaelchen.github.io/machine_learning_step3/index.html">
+<meta property="og:site_name" content="碎碎念">
+<meta property="og:description" content="关于梯度下降的理论基础">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml005.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml006.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml007.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml008.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml009.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml010.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml011.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml012.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml013.png">
+<meta property="og:updated_time" content="2018-08-15T11:58:12.584Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="台大李宏毅机器学习——梯度下降">
+<meta name="twitter:description" content="关于梯度下降的理论基础">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml005.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://samaelchen.github.io/machine_learning_step3/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>台大李宏毅机器学习——梯度下降 | 碎碎念</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120854058-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-120854058-1');
+</script>
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a75b41f44b70e58f40edd582552291cf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">碎碎念</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://samaelchen.github.io/machine_learning_step3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Samael Chen">
+      <meta itemprop="description" content="活该没有性生活">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/profile/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="碎碎念">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">台大李宏毅机器学习——梯度下降
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-08-29 00:00:00" itemprop="dateCreated datePublished" datetime="2017-08-29T00:00:00+08:00">2017-08-29</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/StatisticalLearning/" itemprop="url" rel="index"><span itemprop="name">统计学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>关于梯度下降的理论基础</p>
+<a id="more"></a>
+<p>梯度下降是要解决这样的一个凸优化问题： <span class="math display">\[
+\theta^* = \arg \max_{\theta} L(\theta), L \text{ is the object function, }\theta \text{ is parameters}.
+\]</span> 用向量 <span class="math inline">\(\bigtriangledown L = \begin{bmatrix} \frac{\partial L}{\partial \theta_1} \\ \frac{\partial L}{\partial \theta_2} \\ \vdots \\ \frac{\partial L}{\partial \theta_n} \end{bmatrix}\)</span> 表示梯度。</p>
+<p>为了求解这个目标函数，我们需要按照下面方法更新<span class="math inline">\(\theta\)</span>: <span class="math inline">\(\boldsymbol{\theta}^1 = \boldsymbol{\theta}^0 - \eta \begin{bmatrix} \frac{\partial L}{\partial \theta_1} \\ \frac{\partial L}{\partial \theta_2} \\ \vdots \\ \frac{\partial L}{\partial \theta_n} \end{bmatrix}.\)</span></p>
+<p>这里我们发现有个<span class="math inline">\(\eta\)</span>参数。这个参数我们称为 Learning Rate。Learning Rate 本身是机器学习中需要调节的一个重要参数。如果我们将梯度下降当做是爬山，那么Learning Rate我们可以认为是每一次爬山迈的步子大小，而梯度是我们面向的方向。所以很多时候，我们会将learning rate叫做步长。</p>
+<p><img src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml005.png"></p>
+<p>上图显示了，如果我们有个很大的learning rate，那么我们可能会一步跨到更高的地方，或者来回震荡，无法迭代到最优解，相反，很小的 learning rate 可以让你到达最优解，但是将消耗大量的时间。</p>
+<p>那么是否有办法来自适应调节 learning rate？</p>
+<p>比如，一开始我们通常离最优解很远，那么可以让 learning rate 大一点，随着迭代次数增加，可以减少 learning rate。因此我们可以这样设计 <span class="math inline">\(\eta^t = \eta^0 / \sqrt{t+1}\)</span>。</p>
+<p>事实上有很多种自适应的方法，例如Adagrad，Adam等。李老师介绍了Adagrad。定义为每个 parameter 都去除之前所有的微分的 root mean square。</p>
+<p>比如我们有一个参数 <span class="math inline">\(w\)</span>, 原来的梯度下降是这样定义的： <span class="math display">\[
+w^{t+1} = w^t - \eta^t g^t,
+\]</span> 而adagrad是： <span class="math display">\[
+w^{t+1} = w^t - \frac{\eta^t}{\sigma^n} g^t,
+\]</span> 那 <span class="math inline">\(\sigma^t\)</span> 就是 <span class="math inline">\(w\)</span> 在前 <span class="math inline">\(t\)</span> 步微分的 root mean square。</p>
+<p>所以 adagrad 这样更新 <span class="math inline">\(w\)</span>：</p>
+<p><img src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml006.png"></p>
+<p><img src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml007.png"></p>
+<p>这里要注意一点，adagrad中，梯度算出来越大，说明在这个参数方向上离最优解越远。直观上步长应该越大越快收敛，但是分母部分，梯度越大，步长越小。对于单个参数而言，这没有问题，但是如果现在考虑多个参数，那么梯度越大，不一定离最优解越远。如下图：</p>
+<p><img src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml008.png"></p>
+<p>我们看到，绿色的曲线，我们离最优解其实是比较近的，但是梯度很大，这时候如果我们只用一阶导数的话，要走好几步才能走到底。这就跟我们之前想的不太一致了，我们希望步长是慢慢减小的，但是我们希望的是步长在该大的地方大，改小的地方小。所以只考虑一阶段远远不够。</p>
+<p>因此最好的 step 应该是还要考虑二次微分，最好的步长是一阶微分的绝对值除以二阶微分，这样才能在不同参数之间比较。</p>
+<p>回过头来，adagrad 里面的分母起到的作用就是来替代二阶微分的作用。为什么这样的设计能够work？</p>
+<p><img src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml009.png"></p>
+<p>如图所示，我们画出一阶微分的绝对值，只要我们 sample 足够多的数据，我们就能得到，由于二阶微分较小，所以左边的函数一阶微分的 root mean square 就比较小。</p>
+<p>那么有没有提高梯度下降效率的方法？一般梯度下降需要遍历整个数据集，而 SGD（Stochastic Gradient Descent）每一次更新仅仅考虑一个 sample 的 Loss。</p>
+<p>从图上看，两者的差别就在于 SGD 更散乱，但更快收敛。</p>
+<p><img src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml010.png"></p>
+<p>实践上，为了让模型收敛不是太散乱，同时兼顾效率，会考虑使用 mini-batch SGD。也就是说，一次性用一小批数据来更新梯度。</p>
+<p>另外一个可以加速收敛的方法是做 feature scaling。考虑下图的情况</p>
+<p><img src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml011.png"></p>
+<p>在做 scaling 前，左边的 <span class="math inline">\(x_2\)</span> 导致 <span class="math inline">\(w_2\)</span> 的变动对 loss function 的影响非常大，所以左图最后收敛方向都会沿着 <span class="math inline">\(w_1\)</span> 缓慢下降。因此不用 adagrad 的话，左图的收敛非常慢。而右图因为接近正圆形，沿着任意方向都能快速接近最优解。</p>
+<p>那么 scaling 方法有哪些？常见的比如 z-score，0-1标准化等。这个也叫作normalization。</p>
+<hr>
+<p>这里开始讨论梯度下降的数学原理。</p>
+<p>梯度下降可以成立是基于泰勒展开，Taylor series。那么函数可以写成： <span class="math display">\[
+\begin{align}
+h(x) &amp;= \sum_{k=0}^{\infty} \frac{h^{(k)}(x_0)}{k!}(x-x_0)^k \\
+&amp;= h(x_0) + h&#39;(x_0)(x-x_0)+\frac{h&#39;&#39;(x_0)}{2!}(x-x_0)^2+\dots
+\end{align}
+\]</span> 当 <span class="math inline">\(x\)</span> 无限趋近于 <span class="math inline">\(x_0\)</span> 时候，我们取一阶泰勒展开就可以近似估计原函数。相应的，如果原函数是个多元函数，那么相应的将导数改成偏导数就可以。</p>
+<p>那么，基于泰勒公式，我们的 Loss function 就可以用泰勒展开为一阶多项式。</p>
+<p><img src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml012.png"></p>
+<p>那么在图上一个红色的圆圈内，如何让 Loss 最小？我们可以发现，Loss 只跟两个向量有关，一个是<span class="math inline">\((u, v)\)</span>，另一个是<span class="math inline">\((\theta_1 - a, \theta_2 - b)\)</span>。我们用<span class="math inline">\((\Delta \theta_1\)</span>, <span class="math inline">\(\Delta \theta_2)\)</span> 表示第二个向量。</p>
+<p>因此我们可以知道，要让Loss最小，就是上述两个向量的内积最小，也就是找<span class="math inline">\((u, v)\)</span>反方向上长度最长的向量： <span class="math display">\[
+\begin{bmatrix}
+\Delta \theta_1 \\
+\Delta \theta_2
+\end{bmatrix} = -\eta \begin{bmatrix}
+u \\
+v
+\end{bmatrix}
+\]</span> 也就是 <span class="math display">\[
+\begin{bmatrix}
+\theta_1 \\
+\theta_2
+\end{bmatrix} = \begin{bmatrix}
+a \\
+b
+\end{bmatrix} - \eta \begin{bmatrix}
+u \\
+v
+\end{bmatrix}
+\]</span></p>
+<p>优化方法有很多，之前博客里面写的遗传算法，退火算法，蚁群算法等都是，但是 mini-batch SGD 是目前最常用的方法，因为效率极高。但是这不意味着 SGD 就是最好的方法，因为这是一个很典型的贪心算法，大部分情况下只能接近局部最优。 如下图：</p>
+<p><img src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/blog/ml013.png"></p>
+<p>通常我们发现梯度下降很慢的时候，就会停止迭代了，但实际上，可能我们离局部最优都很远，更不用说全局最优。深度学习常见的一个坑。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>乞讨码</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://github.com/SamaelChen/samaelchen.github.io/raw/hexo/images/wechatpay.png" alt="Samael Chen WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/machine_learning_step2/" rel="next" title="台大李宏毅机器学习——bias&variance">
+                <i class="fa fa-chevron-left"></i> 台大李宏毅机器学习——bias&variance
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/machine_learning_step4/" rel="prev" title="台大李宏毅机器学习——分类算法">
+                台大李宏毅机器学习——分类算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDg5NS83NDQ0"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/profile/avatar.jpg"
+                alt="Samael Chen" />
+            
+              <p class="site-author-name" itemprop="name">Samael Chen</p>
+              <p class="site-description motion-element" itemprop="description">活该没有性生活</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">53</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:chc199310@gmail.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samael Chen</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="Total Visitors">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="Total Views">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

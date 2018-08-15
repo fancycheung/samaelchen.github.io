@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+<meta name="baidu-site-verification" content="0YbFtSUs3K" />
+<meta name="360-site-verification" content="e4a574f568678b9b725df6de1db257c5" />
+<meta name="msvalidate.01" content="B5A47A4FD6AB117AF1CE9EF8705A022C" />
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="两个线性代数里面在机器学习领域大放异彩的算法，SVD和PageRank。">
+<meta name="keywords" content="线性代数, SVD, pagerank">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性代数 13">
+<meta property="og:url" content="https://samaelchen.github.io/linear_algebra_step13/index.html">
+<meta property="og:site_name" content="碎碎念">
+<meta property="og:description" content="两个线性代数里面在机器学习领域大放异彩的算法，SVD和PageRank。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.imgur.com/ZMo1wcb.png">
+<meta property="og:image" content="https://i.imgur.com/kpsOeB5.png">
+<meta property="og:updated_time" content="2018-08-15T11:58:12.584Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="线性代数 13">
+<meta name="twitter:description" content="两个线性代数里面在机器学习领域大放异彩的算法，SVD和PageRank。">
+<meta name="twitter:image" content="https://i.imgur.com/ZMo1wcb.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://samaelchen.github.io/linear_algebra_step13/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>线性代数 13 | 碎碎念</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120854058-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-120854058-1');
+</script>
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a75b41f44b70e58f40edd582552291cf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">碎碎念</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://samaelchen.github.io/linear_algebra_step13/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Samael Chen">
+      <meta itemprop="description" content="活该没有性生活">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/profile/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="碎碎念">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">线性代数 13
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-17 00:00:00" itemprop="dateCreated datePublished" datetime="2018-07-17T00:00:00+08:00">2018-07-17</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/StatisticalLearning/" itemprop="url" rel="index"><span itemprop="name">统计学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>两个线性代数里面在机器学习领域大放异彩的算法，SVD和PageRank。</p>
+<a id="more"></a>
+<p>之前对方阵有对角化分解，而且不是所有的方阵都可以对角化，但是SVD是所有矩阵都可以进行分解的。SVD分解的过程如下：</p>
+<p><img src="https://i.imgur.com/ZMo1wcb.png"></p>
+<p>这个公式会有什么特性呢？我们假设<span class="math inline">\(U = \{u_1, u_2, \cdots, u_m\}\)</span>，<span class="math inline">\(V = \{v_1, v_2, \cdots, v_n \}\)</span>，<span class="math inline">\(\Sigma\)</span>是常数<span class="math inline">\(\{\sigma_1, \sigma_2, \cdots, \sigma_k\}\)</span>的对角矩阵。这里有一个点要注意的就是<span class="math inline">\(\Sigma\)</span>的样子大体上会是左上角一个对角矩阵，其余部分都是零的<span class="math inline">\(m \times n\)</span>的矩阵。这些<span class="math inline">\(\sigma\)</span>称为奇异值，这些奇异值会等于<span class="math inline">\(A^{\top}A\)</span>的特征根的平方根。</p>
+<p>那么如果矩阵经过SVD分解以后，一定会得到<span class="math inline">\(Av_i = \begin{cases}\sigma_i u_i &amp; \text{if } 1 \le i \le k \\ 0 &amp; \text{if } i &gt; k \end{cases}\)</span>，<span class="math inline">\(A^{\top}u_i = \begin{cases}\sigma_i v_i &amp; \text{if } 1 \le i \le k \\ 0 &amp; \text{if } i &gt; k \end{cases}\)</span>。</p>
+<p>现在问题来了，如果给一个矩阵，要怎么计算奇异值？假设有一个矩阵<span class="math inline">\(A = \begin{bmatrix} 0 &amp; 1 &amp; 2 \\ 1 &amp; 0 &amp; 1 \end{bmatrix}\)</span>，可以直观看到，这个矩阵是<span class="math inline">\(3 \times 2\)</span>的矩阵，因此需要在<span class="math inline">\(\mathbb{R}^3\)</span>和<span class="math inline">\(\mathbb{R}^2\)</span>都要有orthogonal matrix。所以先构建矩阵<span class="math inline">\(A^{\top}A = \begin{bmatrix}1 &amp; 0 &amp; 1 \\ 0 &amp; 1 &amp; 2 \\ 1 &amp; 2 &amp; 5 \end{bmatrix}\)</span>。那么做一个<span class="math inline">\(\mathbb{R}^3\)</span>上面的orthogonal matrix，按照这个<a href="https://samaelchen.github.io/linear_algebra_step11/">博客</a>最后的正交化方法，我们可以将矩阵正交化为<span class="math inline">\(v_1 = \frac{1}{\sqrt{30}} \begin{bmatrix} 1 \\ 2 \\ 5 \end{bmatrix}\)</span>，<span class="math inline">\(v_2 = \frac{1}{\sqrt{5}} \begin{bmatrix} 2 \\ -1 \\ 0 \end{bmatrix}\)</span>，<span class="math inline">\(v_3 = \frac{1}{\sqrt{6}} \begin{bmatrix} 1 \\ 2 \\ -1 \end{bmatrix}\)</span>。然后求一下<span class="math inline">\(A^{\top}A\)</span>的特征根分别是6，1和0。所以奇异值就是<span class="math inline">\(\sqrt{6}\)</span>和1。然后就可以按照上面的公式算出<span class="math inline">\(u_1 = \frac{1}{\sqrt{5}} \begin{bmatrix} 2 \\ 1 \end{bmatrix}\)</span>，<span class="math inline">\(u_1 = \frac{1}{\sqrt{5}} \begin{bmatrix} -1 \\ 2 \end{bmatrix}\)</span>。</p>
+<p>那么事实上算到这里，只要将上面的向量集合和奇异值排列好，就完成了矩阵<span class="math inline">\(A\)</span>的SVD分解。也就是<span class="math display">\[
+A = \begin{bmatrix} \frac{2}{\sqrt{5}} &amp; \frac{-1}{\sqrt{5}} \\ \frac{1}{\sqrt{5}} &amp; \frac{2}{\sqrt{5}} \end{bmatrix} \begin{bmatrix} \sqrt{6} &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \end{bmatrix} \begin{bmatrix} \frac{1}{\sqrt{30}} &amp; \frac{2}{\sqrt{5}} &amp; \frac{1}{\sqrt{6}} \\ \frac{2}{\sqrt{30}} &amp; \frac{-1}{\sqrt{5}} &amp; \frac{2}{\sqrt{6}} \\ \frac{5}{\sqrt{30}} &amp; 0 &amp; \frac{-1}{\sqrt{6}} \end{bmatrix}^{\top}
+\]</span></p>
+<p>那么SVD跟PCA是有非常多相似的地方的，如果我们使用了全部的奇异值，那么我们就可以还原原来的矩阵，但是如果我们只取了前面的一部分奇异值，我们得到的就是一个损失了一部分信息的矩阵。SVD在机器学习的领域有非常多的应用，最常用的一个地方就是用在推荐算法里面，另外就是降维。此外，还有一个矩阵分解方法是NMF，解释性会更强一些。这个在之前机器学习的博客里面也有提到。</p>
+<p>然后是PageRank。这个算法缔造了今天的谷歌，也被称作是最贵的eigen value。PageRank实际上是一个蛮复杂的模型，这里讲一个最简单的情况，后面找机会再认真学习一下。所以这里有一些矩阵分析里面的定理（虽然我也不是很懂）就直接记结论，证明过程以后再学吧。</p>
+<p>首先我们假设这个世界上只有四个网页，他们的关系如下：</p>
+<p><img src="https://i.imgur.com/kpsOeB5.png"></p>
+<p>现在假设有一个人随机浏览网页，他到每一个网站的可能性都是一样的，那么根据上图的结果我们可以得到： <span class="math display">\[
+\begin{align}
+x_1 &amp; = x_3 + \frac{1}{2} x_4 \\
+x_2 &amp; = \frac{1}{3} x_1 \\
+x_3 &amp; = \frac{1}{3} x_1 + \frac{1}{2} x_2 + \frac{1}{2} x_4 \\
+x_4 &amp; = \frac{1}{3} x_1 + \frac{1}{2} x_2
+\end{align}
+\]</span></p>
+<p>所以我们就可以很简单得到这样一个矩阵<span class="math inline">\(A = \begin{bmatrix}0 &amp; 0 &amp; 1 &amp; \frac{1}{2} \\ \frac{1}{3} &amp; 0 &amp; 0 &amp; 0 \\ \frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} \\ \frac{1}{3} &amp; \frac{1}{2} &amp; 0 &amp; 0\end{bmatrix}\)</span>。这样的矩阵我们叫做马尔科夫矩阵，或者叫转移矩阵。这种矩阵的特点是每一个行的和为1，或者每一个列的和为1。根据<a href="https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem" target="_blank" rel="noopener">Perron-Frobenius theorem</a>这样的矩阵必然有一个特征值为1。</p>
+<p>所以PageRank实际上在做的事情就是计算<span class="math inline">\(A\)</span>的特征根为1时候的特征向量。这个特征向量最后就是我们的网页排名。</p>
+<p>如果想要对PageRank有多一点的了解可以上Wikipedia看一下<a href="https://en.wikipedia.org/wiki/PageRank" target="_blank" rel="noopener">PageRank的页面</a>，也可以直接看原来的<a href="http://ilpubs.stanford.edu:8090/422/1/1999-66.pdf" target="_blank" rel="noopener">论文</a>。另外有中文的这篇博客<a href="http://blog.codinglabs.org/articles/intro-to-pagerank.html" class="uri" target="_blank" rel="noopener">http://blog.codinglabs.org/articles/intro-to-pagerank.html</a>，介绍比较全面，不过基本上没有数学证明过程。看看以后有没有空自己推导一遍，顺便Python实现一下。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>乞讨码</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://github.com/SamaelChen/samaelchen.github.io/raw/hexo/images/wechatpay.png" alt="Samael Chen WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/linear_algebra_step12/" rel="next" title="线性代数 12">
+                <i class="fa fa-chevron-left"></i> 线性代数 12
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/economics_thoughts_notes4/" rel="prev" title="经济思想史读书笔记——亚当·斯密">
+                经济思想史读书笔记——亚当·斯密 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDg5NS83NDQ0"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://raw.githubusercontent.com/SamaelChen/samaelchen.github.io/hexo/images/profile/avatar.jpg"
+                alt="Samael Chen" />
+            
+              <p class="site-author-name" itemprop="name">Samael Chen</p>
+              <p class="site-description motion-element" itemprop="description">活该没有性生活</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">53</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:chc199310@gmail.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samael Chen</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="Total Visitors">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="Total Views">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
