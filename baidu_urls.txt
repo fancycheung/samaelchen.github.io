@@ -1,5 +1,5 @@
-https://samaelchen.github.io/pytorch_lstm_sentiment/
-https://samaelchen.github.io/word2vec_pytorch/
-https://samaelchen.github.io/deep_learning_step4/
-https://samaelchen.github.io/economics_thoughts_notes4/
-https://samaelchen.github.io/linear_algebra_step13/
+https://samaelchen.github.io/tinyxgb/
+https://samaelchen.github.io/guabi/
+https://samaelchen.github.io/pytorch-char-rnn/
+https://samaelchen.github.io/depressed/
+https://samaelchen.github.io/deep_learning_step6/

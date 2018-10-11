@@ -23,8 +23,13 @@
 <meta name="baidu-site-verification" content="0YbFtSUs3K" />
 <meta name="360-site-verification" content="e4a574f568678b9b725df6de1db257c5" />
 <meta name="msvalidate.01" content="B5A47A4FD6AB117AF1CE9EF8705A022C" />
+<meta name="google-site-verification" content="IATmw7vz__5a2CbY4PeD1KzOeufd2tD8n-BUxRKsF-Y" />
 
 
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
 
 
 
@@ -137,18 +142,18 @@
 
 
 
-  <meta name="description" content="尝试使用LSTM做情感分析，这个gluon有非常详细的例子，可以直接参考gluon的官方教程。这里尝试使用PyTorch复现一个。数据用的是IMDB的数据http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz">
-<meta name="keywords" content="pytorch, word2vec, 词向量, LSTM, 循环神经网络, 情感分析">
+  <meta name="description" content="2018.08.16更新一个textCNN。 尝试使用LSTM做情感分析，这个gluon有非常详细的例子，可以直接参考gluon的官方教程。这里尝试使用PyTorch复现一个。数据用的是IMDB的数据http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz">
+<meta name="keywords" content="pytorch,word2vec,词向量,LSTM,循环神经网络,情感分析">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PyTorch实现LSTM情感分析">
 <meta property="og:url" content="https://samaelchen.github.io/pytorch_lstm_sentiment/index.html">
 <meta property="og:site_name" content="碎碎念">
-<meta property="og:description" content="尝试使用LSTM做情感分析，这个gluon有非常详细的例子，可以直接参考gluon的官方教程。这里尝试使用PyTorch复现一个。数据用的是IMDB的数据http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz">
+<meta property="og:description" content="2018.08.16更新一个textCNN。 尝试使用LSTM做情感分析，这个gluon有非常详细的例子，可以直接参考gluon的官方教程。这里尝试使用PyTorch复现一个。数据用的是IMDB的数据http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-08-15T12:37:15.365Z">
+<meta property="og:updated_time" content="2018-10-09T13:26:34.259Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PyTorch实现LSTM情感分析">
-<meta name="twitter:description" content="尝试使用LSTM做情感分析，这个gluon有非常详细的例子，可以直接参考gluon的官方教程。这里尝试使用PyTorch复现一个。数据用的是IMDB的数据http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz">
+<meta name="twitter:description" content="2018.08.16更新一个textCNN。 尝试使用LSTM做情感分析，这个gluon有非常详细的例子，可以直接参考gluon的官方教程。这里尝试使用PyTorch复现一个。数据用的是IMDB的数据http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz">
 
 
 
@@ -299,6 +304,14 @@
 
       
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />Search</a>
+        </li>
+      
     </ul>
   
 
@@ -307,6 +320,29 @@
 
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
   
 </nav>
 
@@ -391,6 +427,22 @@
             
 
             
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-10-09 21:26:34" itemprop="dateModified" datetime="2018-10-09T21:26:34+08:00">2018-10-09</time>
+              
+            
           </span>
 
           
@@ -447,7 +499,8 @@
       
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>尝试使用LSTM做情感分析，这个gluon有非常详细的例子，可以直接参考gluon的<a href="http://zh.gluon.ai/chapter_natural-language-processing/sentiment-analysis.html" target="_blank" rel="noopener">官方教程</a>。这里尝试使用PyTorch复现一个。数据用的是IMDB的数据<a href="http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz" class="uri" target="_blank" rel="noopener">http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz</a></p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>2018.08.16更新一个textCNN。</p>
+<p>尝试使用LSTM做情感分析，这个gluon有非常详细的例子，可以直接参考gluon的<a href="http://zh.gluon.ai/chapter_natural-language-processing/sentiment-analysis.html" target="_blank" rel="noopener">官方教程</a>。这里尝试使用PyTorch复现一个。数据用的是IMDB的数据<a href="http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz" class="uri" target="_blank" rel="noopener">http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz</a></p>
 <a id="more"></a>
 <p>首先我们导入相关的package：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">import</span> torch.utils.data.dataloader <span class="keyword">as</span> dataloader</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"><span class="keyword">import</span> torch.autograd <span class="keyword">as</span> autograd</span><br><span class="line"><span class="keyword">import</span> torchtext.vocab <span class="keyword">as</span> torchvocab</span><br><span class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable</span><br><span class="line"><span class="keyword">import</span> tqdm</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">import</span> gensim</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> snowballstemmer</span><br><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"><span class="keyword">from</span> nltk.corpus <span class="keyword">import</span> stopwords</span><br><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> chain</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</span><br></pre></td></tr></table></figure>
@@ -469,7 +522,7 @@
 <p>然后就是定义网络：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SentimentNet</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, vocab_size, embed_size, num_hiddens, num_layers,</span></span></span><br><span class="line"><span class="function"><span class="params">                 bidirectional, weight, labels, use_gpu, **kwargs)</span>:</span></span><br><span class="line">        super(SentimentNet, self).__init__(**kwargs)</span><br><span class="line">        self.num_hiddens = num_hiddens</span><br><span class="line">        self.num_layers = num_layers</span><br><span class="line">        self.use_gpu = use_gpu</span><br><span class="line">        self.bidirectional = bidirectional</span><br><span class="line">        self.embedding = nn.Embedding.from_pretrained(weight)</span><br><span class="line">        self.embedding.weight.requires_grad = <span class="keyword">False</span></span><br><span class="line">        self.encoder = nn.LSTM(input_size=embed_size, hidden_size=self.num_hiddens,</span><br><span class="line">                               num_layers=num_layers, bidirectional=self.bidirectional,</span><br><span class="line">                               dropout=<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">if</span> self.bidirectional:</span><br><span class="line">            self.decoder = nn.Linear(num_hiddens * <span class="number">4</span>, labels)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.decoder = nn.Linear(num_hiddens * <span class="number">2</span>, labels)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, inputs)</span>:</span></span><br><span class="line">        embeddings = self.embedding(inputs)</span><br><span class="line">        states, hidden = self.encoder(embeddings.permute([<span class="number">1</span>, <span class="number">0</span>, <span class="number">2</span>]))</span><br><span class="line">        encoding = torch.cat([states[<span class="number">0</span>], states[<span class="number">-1</span>]], dim=<span class="number">1</span>)</span><br><span class="line">        outputs = self.decoder(encoding)</span><br><span class="line">        <span class="keyword">return</span> outputs</span><br></pre></td></tr></table></figure>
 <p>那这里需要注意几个点，第一，LSTM可以不initialize hidden，如果不initialize的话，那么PyTorch会默认初始为0。</p>
-<p>另外就是LSTM这里传进去的数据格式是[seq_len, batch_size, embedded_size]。而我们传进去的数据是[batch_size, seq_len]的样子，那经过embedding之后的结果是[batch_size, seq_len, embedded_size]。所以我们这里要将第二个维度和第一个维度做个调换。这样返回的数据就是[batch_size, embedded_size]。不过LSTM有个参数叫batch_first，如果设为True，那么返回的就会是[seq_len, embedded_size]。这里非常的绕，我在这里卡了好久(=<span class="citation" data-cites="__">@__</span>@=)</p>
+<p>另外就是LSTM这里传进去的数据格式是[seq_len, batch_size, embedded_size]。而我们传进去的数据是[batch_size, seq_len]的样子，那经过embedding之后的结果是[batch_size, seq_len, embedded_size]。所以我们这里要将第二个维度和第一个维度做个调换。而LSTM这边output的dimension和inputs是一致的，如果这里我们不做维度的调换，可以将LSTM的batch_first参数设置为True。然后我们要拿到每个batch的初始状态和最后状态还是一样要去做一个第一第二维度的调换。这里非常的绕，我在这里卡了好久(=<span class="citation" data-cites="__">@__</span>@=)</p>
 <p>第三就是我这里用了最初始的状态和最后的状态拼起来作为分类的输入。</p>
 <p>另外有一点吐槽的就是，MXNet的dense层比较强大啊，不用定义输入的维度，只要定义输出的维度就可以了，操作比较骚啊。</p>
 <p>然后我们把weight导进来：</p>
@@ -483,6 +536,14 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(num_epochs):</span><br><span class="line">    start = time.time()</span><br><span class="line">    train_loss, test_losses = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    train_acc, test_acc = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    n, m = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> feature, label <span class="keyword">in</span> train_iter:</span><br><span class="line">        n += <span class="number">1</span></span><br><span class="line">        net.zero_grad()</span><br><span class="line">        feature = Variable(feature.cuda())</span><br><span class="line">        label = Variable(label.cuda())</span><br><span class="line">        score = net(feature)</span><br><span class="line">        loss = loss_function(score, label)</span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line">        train_acc += accuracy_score(torch.argmax(score.cpu().data,</span><br><span class="line">                                                 dim=<span class="number">1</span>), label.cpu())</span><br><span class="line">        train_loss += loss</span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> test_feature, test_label <span class="keyword">in</span> test_iter:</span><br><span class="line">            m += <span class="number">1</span></span><br><span class="line">            test_feature = test_feature.cuda()</span><br><span class="line">            test_label = test_label.cuda()</span><br><span class="line">            test_score = net(test_feature)</span><br><span class="line">            test_loss = loss_function(test_score, test_label)</span><br><span class="line">            test_acc += accuracy_score(torch.argmax(test_score.cpu().data,</span><br><span class="line">                                                    dim=<span class="number">1</span>), test_label.cpu())</span><br><span class="line">            test_losses += test_loss</span><br><span class="line">    end = time.time()</span><br><span class="line">    runtime = end - start</span><br><span class="line">    print(<span class="string">'epoch: %d, train loss: %.4f, train acc: %.2f, test loss: %.4f, test acc: %.2f, time: %.2f'</span> %</span><br><span class="line">          (epoch, train_loss.data / n, train_acc / n, test_losses.data / m, test_acc / m, runtime))</span><br></pre></td></tr></table></figure>
 <p>也可以直接看我的<a href="https://github.com/SamaelChen/hexo-practice-code/blob/master/pytorch/langage%20model/lstm-sentiment.ipynb" target="_blank" rel="noopener">notebook</a></p>
 <p>后面试试textCNN，感觉也挺骚气的。</p>
+<hr>
+<p>2018.08.16 更新一个textCNN的玩法。</p>
+<p>CNN太熟了，很容易搞，其实只要把网络改一下，其他的动都不用动：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">textCNN</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, vocab_size, embed_size, seq_len, labels, weight, **kwargs)</span>:</span></span><br><span class="line">        super(textCNN, self).__init__(**kwargs)</span><br><span class="line">        self.labels = labels</span><br><span class="line">        self.embedding = nn.Embedding.from_pretrained(weight)</span><br><span class="line">        self.embedding.weight.requires_grad = <span class="keyword">False</span></span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">1</span>, <span class="number">1</span>, (<span class="number">3</span>, embed_size))</span><br><span class="line">        self.conv2 = nn.Conv2d(<span class="number">1</span>, <span class="number">1</span>, (<span class="number">4</span>, embed_size))</span><br><span class="line">        self.conv3 = nn.Conv2d(<span class="number">1</span>, <span class="number">1</span>, (<span class="number">5</span>, embed_size))</span><br><span class="line">        self.pool1 = nn.MaxPool2d((seq_len - <span class="number">3</span> + <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        self.pool2 = nn.MaxPool2d((seq_len - <span class="number">4</span> + <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        self.pool3 = nn.MaxPool2d((seq_len - <span class="number">5</span> + <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        self.linear = nn.Linear(<span class="number">3</span>, labels)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, inputs)</span>:</span></span><br><span class="line">        inputs = self.embedding(inputs).view(inputs.shape[<span class="number">0</span>], <span class="number">1</span>, inputs.shape[<span class="number">1</span>], <span class="number">-1</span>)</span><br><span class="line">        x1 = F.relu(self.conv1(inputs))</span><br><span class="line">        x2 = F.relu(self.conv2(inputs))</span><br><span class="line">        x3 = F.relu(self.conv3(inputs))</span><br><span class="line"></span><br><span class="line">        x1 = self.pool1(x1)</span><br><span class="line">        x2 = self.pool2(x2)</span><br><span class="line">        x3 = self.pool3(x3)</span><br><span class="line"></span><br><span class="line">        x = torch.cat((x1, x2, x3), <span class="number">-1</span>)</span><br><span class="line">        x = x.view(inputs.shape[<span class="number">0</span>], <span class="number">1</span>, <span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">        x = self.linear(x)</span><br><span class="line">        x = x.view(<span class="number">-1</span>, self.labels)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span>(x)</span><br></pre></td></tr></table></figure>
+<p>这里的网络设计很简单，就是用三个filter去扫一遍文章，filter的尺寸其实就是我们一次看多少个词。这样扫完以后是三个向量，然后pooling一下得到三个实数。把这三个实数拼成一个向量，然后用fc分类一下就结束了。</p>
+<p>然后初始化网络：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net = textCNN(vocab_size=(vocab_size+<span class="number">1</span>), embed_size=embed_size,</span><br><span class="line">              seq_len=<span class="number">500</span>, labels=labels, weight=weight)</span><br></pre></td></tr></table></figure>
+<p>其他的都没改，就可以直接跑了。速度上CNN比LSTM的参数少，速度快很多，不过只跑几轮的话效果差一点。</p>
 
       
     </div>
@@ -528,6 +589,26 @@
 
       
       
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
       
 
       
@@ -543,6 +624,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/pytorch_cloze/" rel="prev" title="李宏毅深度学习作业——language model">
+                李宏毅深度学习作业——language model <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -612,7 +697,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">53</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -639,7 +724,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">7</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -721,7 +810,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
     <span class="site-uv" title="Total Visitors">
@@ -745,7 +834,6 @@
 
 
 
-
         
       </div>
     </footer>
@@ -757,6 +845,12 @@
       </div>
     
 
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
     
 	
     
@@ -866,6 +960,326 @@
 
   
 
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('-1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
 
 
 
@@ -918,13 +1332,46 @@
         }
     });
 </script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
     
   
 
 
   
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,Reddit,Twitter,Facebook,Linkedin";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "vertical";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,Reddit,Twitter,Facebook,Linkedin";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
   
 
   
