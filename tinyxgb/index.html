@@ -142,19 +142,19 @@
 
 
 
-  <meta name="description" content="XGBoost是GBDT的一个超级加强版，用了很久，一直没细看原理。围观了一波人家的实现，自己也来弄一遍。以后面试上来一句，要不要我现场写个XGBoost，听上去是不是很霸气。 大概撸了一遍原理，代码待续。一想到还得自己写个树心情就不美丽了。">
+  <meta name="description" content="XGBoost是GBDT的一个超级加强版，用了很久，一直没细看原理。围观了一波人家的实现，自己也来弄一遍。以后面试上来一句，要不要我现场写个XGBoost，听上去是不是很霸气。 在开源代码的基础上进行了一点修改，大概跑通了，但是有些地方感觉有点诡异。后面会讲。">
 <meta name="keywords" content="机器学习,xgboost,gbdt">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tiny XGBoost">
+<meta property="og:title" content="tiny XGBoost以及集成算法回顾">
 <meta property="og:url" content="https://samaelchen.github.io/tinyxgb/index.html">
 <meta property="og:site_name" content="碎碎念">
-<meta property="og:description" content="XGBoost是GBDT的一个超级加强版，用了很久，一直没细看原理。围观了一波人家的实现，自己也来弄一遍。以后面试上来一句，要不要我现场写个XGBoost，听上去是不是很霸气。 大概撸了一遍原理，代码待续。一想到还得自己写个树心情就不美丽了。">
+<meta property="og:description" content="XGBoost是GBDT的一个超级加强版，用了很久，一直没细看原理。围观了一波人家的实现，自己也来弄一遍。以后面试上来一句，要不要我现场写个XGBoost，听上去是不是很霸气。 在开源代码的基础上进行了一点修改，大概跑通了，但是有些地方感觉有点诡异。后面会讲。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.loli.net/2018/10/11/5bbec3573482d.png">
-<meta property="og:updated_time" content="2018-10-11T14:32:34.682Z">
+<meta property="og:updated_time" content="2018-10-20T10:56:50.577Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tiny XGBoost">
-<meta name="twitter:description" content="XGBoost是GBDT的一个超级加强版，用了很久，一直没细看原理。围观了一波人家的实现，自己也来弄一遍。以后面试上来一句，要不要我现场写个XGBoost，听上去是不是很霸气。 大概撸了一遍原理，代码待续。一想到还得自己写个树心情就不美丽了。">
+<meta name="twitter:title" content="tiny XGBoost以及集成算法回顾">
+<meta name="twitter:description" content="XGBoost是GBDT的一个超级加强版，用了很久，一直没细看原理。围观了一波人家的实现，自己也来弄一遍。以后面试上来一句，要不要我现场写个XGBoost，听上去是不是很霸气。 在开源代码的基础上进行了一点修改，大概跑通了，但是有些地方感觉有点诡异。后面会讲。">
 <meta name="twitter:image" content="https://i.loli.net/2018/10/11/5bbec3573482d.png">
 
 
@@ -172,7 +172,7 @@
   };
 </script>
 
-  <title>tiny XGBoost | 碎碎念</title>
+  <title>tiny XGBoost以及集成算法回顾 | 碎碎念</title>
   
 
 
@@ -400,7 +400,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">tiny XGBoost
+          <h2 class="post-title" itemprop="name headline">tiny XGBoost以及集成算法回顾
               
             
           </h2>
@@ -442,7 +442,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-10-11 22:32:34" itemprop="dateModified" datetime="2018-10-11T22:32:34+08:00">2018-10-11</time>
+                <time title="Modified: 2018-10-20 18:56:50" itemprop="dateModified" datetime="2018-10-20T18:56:50+08:00">2018-10-20</time>
               
             
           </span>
@@ -502,7 +502,7 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>XGBoost是GBDT的一个超级加强版，用了很久，一直没细看原理。围观了一波人家的实现，自己也来弄一遍。以后面试上来一句，要不要我现场写个XGBoost，听上去是不是很霸气。</p>
-<p>大概撸了一遍原理，代码待续。一想到还得自己写个树心情就不美丽了。</p>
+<p>在开源代码的基础上进行了一点修改，大概跑通了，但是有些地方感觉有点诡异。后面会讲。</p>
 <a id="more"></a>
 <h1 id="回顾一下ensemble算法">回顾一下ensemble算法</h1>
 <p>之前也写了一篇笔记，<a href="https://samaelchen.github.io/machine_learning_step17/">台大李宏毅机器学习——集成算法</a>，最近把一些错误做了修改。</p>
@@ -549,8 +549,15 @@ L(g) &amp;= \sum_n \exp(-y_n g_t(x_n)) \\
 <p>然后在XGBoost里面的损失函数就可以用二阶泰勒展开来表示： <span class="math display">\[
 \Theta = \sum_{i=1}^n [g_i f_t(x_i) + \frac{1}{2} h_i f^2_t(x_i)] + \Omega(f_t)
 \]</span> 其中的<span class="math inline">\(g_i\)</span>和<span class="math inline">\(h_i\)</span>分别是一阶导数和二阶导数。这样定义的好处是，以后不论用什么损失函数，总体的优化方向仅仅跟一阶导数和二阶导数有关。那么在这个大框架底下，任意可以二阶导的损失函数都可以放进来了。那么我看了XGB的<a href="https://arxiv.org/pdf/1603.02754.pdf" target="_blank" rel="noopener">论文</a>关于为什么取二阶导的描述： <img src="https://i.loli.net/2018/10/11/5bbec3573482d.png"> 直观感受上来说吧，就有点像拟牛顿法是梯度下降的一个功能性提升的样子。</p>
-<p>另外就是正则项，这里<span class="math inline">\(\Omega(f) = \gamma T + \frac{1}{2} \lambda \sum_{j=1}^T w_j^2\)</span>。这里的<span class="math inline">\(T\)</span>是我们有多少叶节点，<span class="math inline">\(w\)</span>是叶节点的权重。这两个都在XGB的参数里面可以调整的，我们都知道正则项会改变模型的保守程度，或者说就是variance。</p>
+<p>另外就是正则项，这里<span class="math inline">\(\Omega(f) = \gamma T + \frac{1}{2} \lambda \sum_{j=1}^T w_j^2\)</span>。这里的<span class="math inline">\(T\)</span>是我们有多少叶节点，<span class="math inline">\(w\)</span>是叶节点的权重。这两个都在XGB的参数里面可以调整的，我们都知道正则项会改变模型的保守程度，或者说就是variance。而<span class="math inline">\(w\)</span>在这里就是<span class="math inline">\(f_t(x)\)</span>。这里要是不理解，可以看<a href="http://www.52cs.org/?p=429" target="_blank" rel="noopener">陈天奇的这篇中文解释</a>。</p>
 <p>其他XGB的优化很多是工程上的优化，这个不是CS科班出身就看不懂了。如何并行化什么的，一脸懵逼。具体可以看陈天奇的论文，数学的部分写的非常美妙。</p>
+<h1 id="tiny-xgb的一些坑">tiny XGB的一些坑</h1>
+<p>完全自己写太可怕了，在<a href="https://github.com/lancifollia/tinygbt/blob/master/tinygbt.py" target="_blank" rel="noopener">tinygbt</a>的基础上直接修改了一下，原作的代码逻辑非常清晰。anyway，虽然我觉得有些地方貌似是有问题的，做了一点小改动，这个是<a href="https://github.com/SamaelChen/hexo-practice-code/blob/master/fun/tinyxgb.ipynb" target="_blank" rel="noopener">我的修改版</a>。</p>
+<p>一个事情就是原作的模型里面learning rate是会越跑越小的，我改成了固定的。另外算split gain的时候我按照论文的公式写的。</p>
+<p>还有就是我改了原作的梯度和loss，这样我可以传一些其他损失函数进去，虽然我没试过行不行得通吧。理论上应该OK的吧。XD</p>
+<p>然后我觉得原作一个地方我没看懂，就是计算weight的地方，按照论文的公式是<span class="math inline">\(w_j = -\frac{G_j}{H_j + \lambda}\)</span>，但是在这里实现的时候是<span class="math inline">\(\frac{G_j}{H_j + \lambda}\)</span>，就是正负之差。但是很神奇的是我用负号的时候，就不能收敛了。没懂为什么，明明我按照公式求偏导就是负的，实现的时候就不对了。</p>
+<p>最后算是一个坑吧，原作数据集用的是LightGBM的<a href="https://github.com/Microsoft/LightGBM/tree/master/examples/regression" target="_blank" rel="noopener">测试数据</a>。但是！！！LightGBM的分类和回归用的是同一个数据集，所以，实际上这个回归吧，参考意义也就那样吧。我用的是kaggle上面的pokemon数据集来做回归。</p>
+<p>anyway，有人可以发现为什么weight那里会那样的话，给条明路。：)</p>
 
       
     </div>
@@ -632,6 +639,10 @@ L(g) &amp;= \sum_n \exp(-y_n g_t(x_n)) \\
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/pytorch_text_generation/" rel="prev" title="文本生成">
+                文本生成 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -709,7 +720,7 @@ L(g) &amp;= \sum_n \exp(-y_n g_t(x_n)) \\
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-count">63</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -787,7 +798,7 @@ L(g) &amp;= \sum_n \exp(-y_n g_t(x_n)) \\
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#回顾一下ensemble算法"><span class="nav-number">1.</span> <span class="nav-text">回顾一下ensemble算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bagging"><span class="nav-number">1.1.</span> <span class="nav-text">bagging</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#boosting"><span class="nav-number">1.2.</span> <span class="nav-text">boosting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#adaboost"><span class="nav-number">1.2.1.</span> <span class="nav-text">Adaboost</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gbdt"><span class="nav-number">1.2.2.</span> <span class="nav-text">GBDT</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#xgboost"><span class="nav-number">2.</span> <span class="nav-text">XGBoost</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#回顾一下ensemble算法"><span class="nav-number">1.</span> <span class="nav-text">回顾一下ensemble算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bagging"><span class="nav-number">1.1.</span> <span class="nav-text">bagging</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#boosting"><span class="nav-number">1.2.</span> <span class="nav-text">boosting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#adaboost"><span class="nav-number">1.2.1.</span> <span class="nav-text">Adaboost</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gbdt"><span class="nav-number">1.2.2.</span> <span class="nav-text">GBDT</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#xgboost"><span class="nav-number">2.</span> <span class="nav-text">XGBoost</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tiny-xgb的一些坑"><span class="nav-number">3.</span> <span class="nav-text">tiny XGB的一些坑</span></a></li></ol></div>
             
 
           </div>
@@ -807,7 +818,7 @@ L(g) &amp;= \sum_n \exp(-y_n g_t(x_n)) \\
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-heart"></i>
   </span>
